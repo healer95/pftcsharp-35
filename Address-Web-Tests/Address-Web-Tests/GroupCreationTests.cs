@@ -49,7 +49,8 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("user")).SendKeys("admin");
             driver.FindElement(By.Name("pass")).Clear();
             driver.FindElement(By.Name("pass")).SendKeys("secret");
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).Click();
+            //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).Click();
+            driver.FindElement(By.Id("LoginForm")).Submit();
             driver.FindElement(By.LinkText("groups")).Click();
             driver.FindElement(By.Name("new")).Click();
             driver.FindElement(By.Name("group_name")).Click();
