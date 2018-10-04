@@ -22,7 +22,7 @@ namespace WebAddressbookTests
         {
             OpenQA.Selenium.Chrome.ChromeOptions options = new OpenQA.Selenium.Chrome.ChromeOptions();
             driver = new OpenQA.Selenium.Chrome.ChromeDriver(options);
-            baseURL = "https://www.katalon.com/";
+            baseURL = "http://localhost:81/";
             verificationErrors = new StringBuilder();
         }
 
@@ -38,32 +38,67 @@ namespace WebAddressbookTests
                 // Ignore errors if unable to close the browser
             }
             Assert.AreEqual("", verificationErrors.ToString());
-        }
+        } //Selenium func
 
         [Test]
         public void GroupCreationTest()
         {
-            driver.Navigate().GoToUrl("http://localhost:81/addressbook/");
-            driver.FindElement(By.Name("user")).Click();
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys("admin");
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys("secret");
-            //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).Click();
-            driver.FindElement(By.Id("LoginForm")).Submit();
-            driver.FindElement(By.LinkText("groups")).Click();
-            driver.FindElement(By.Name("new")).Click();
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys("123");
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys("1");
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys("2");
-            driver.FindElement(By.Name("submit")).Click();
-            driver.FindElement(By.LinkText("groups")).Click();
+            OpenHomePage();
+            Login("admin", "secret");
+            GoToGroupsPage();
+            InitGroupCreation();
+            FillGroupData("123", "1", "2");
+            SubmitGroupCreation();
+            GoToGroupsPage();
+            Logout();
+        }
+
+        private void Logout()
+        {
             driver.FindElement(By.LinkText("Logout")).Click();
         }
+
+        private void SubmitGroupCreation()
+        {
+            driver.FindElement(By.Name("submit")).Click();
+        }
+
+        private void FillGroupData(string name, string header, string footer)
+        {
+            driver.FindElement(By.Name("group_name")).Click();
+            driver.FindElement(By.Name("group_name")).Clear();
+            driver.FindElement(By.Name("group_name")).SendKeys(name);
+            driver.FindElement(By.Name("group_header")).Clear();
+            driver.FindElement(By.Name("group_header")).SendKeys(header);
+            driver.FindElement(By.Name("group_footer")).Clear();
+            driver.FindElement(By.Name("group_footer")).SendKeys(footer);
+        }
+
+        private void InitGroupCreation()
+        {
+            driver.FindElement(By.Name("new")).Click();
+        }
+
+        private void GoToGroupsPage()
+        {
+            driver.FindElement(By.LinkText("groups")).Click();
+        }
+
+        private void Login(string username, string password)
+        {
+            driver.FindElement(By.Name("user")).Click();
+            driver.FindElement(By.Name("user")).Clear();
+            driver.FindElement(By.Name("user")).SendKeys(username);
+            driver.FindElement(By.Name("pass")).Clear();
+            driver.FindElement(By.Name("pass")).SendKeys(password);
+            driver.FindElement(By.Id("LoginForm")).Submit();
+        }
+
+        private void OpenHomePage()
+        {
+            driver.Navigate().GoToUrl(baseURL+"addressbook/");
+        }
+
         private bool IsElementPresent(By by)
         {
             try
@@ -88,7 +123,7 @@ namespace WebAddressbookTests
             {
                 return false;
             }
-        }
+        } //Selenium func
 
         private string CloseAlertAndGetItsText()
         {
@@ -110,6 +145,6 @@ namespace WebAddressbookTests
             {
                 acceptNextAlert = true;
             }
-        }
+        } //Selenium func
     }
 }
