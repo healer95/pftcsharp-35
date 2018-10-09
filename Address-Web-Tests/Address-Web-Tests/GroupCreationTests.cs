@@ -27,7 +27,7 @@ namespace WebAddressbookTests
         }
 
         [TearDown]
-        public void TeardownTest()
+        public void TeardownTest() //Selenium func
         {
             try
             {
@@ -38,13 +38,13 @@ namespace WebAddressbookTests
                 // Ignore errors if unable to close the browser
             }
             Assert.AreEqual("", verificationErrors.ToString());
-        } //Selenium func
+        }
 
         [Test]
         public void GroupCreationTest()
         {
-            OpenHomePage();
-            Login(new AccountData ("admin", "secret"));
+            CommonMethods.OpenHomePage(driver, baseURL);
+            CommonMethods.Login(driver, new AccountData ("admin", "secret"));
             GoToGroupsPage();
             InitGroupCreation();
             GroupData groupdata = new GroupData("123");
@@ -53,14 +53,9 @@ namespace WebAddressbookTests
             FillGroupData(groupdata);
             SubmitGroupCreation();
             GoToGroupsPage();
-            Logout();
+            CommonMethods.Logout(driver);
         }
-
-        private void Logout()
-        {
-            driver.FindElement(By.LinkText("Logout")).Click();
-        }
-
+        
         private void SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
@@ -85,21 +80,6 @@ namespace WebAddressbookTests
         private void GoToGroupsPage()
         {
             driver.FindElement(By.LinkText("groups")).Click();
-        }
-
-        private void Login(AccountData account)
-        {
-            driver.FindElement(By.Name("user")).Click();
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            driver.FindElement(By.Id("LoginForm")).Submit();
-        }
-
-        private void OpenHomePage()
-        {
-            driver.Navigate().GoToUrl(baseURL+"addressbook/");
         }
 
         private bool IsElementPresent(By by) //Selenium func
