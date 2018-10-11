@@ -73,17 +73,17 @@ namespace WebAddressbookTests
             FillAddressData(addressdata);
             SubmitAddressCreation();
             GoToHomePage();
-            DeleteAllAddresses();
+            // DeleteAllAddresses();
             CommonMethods.Logout(driver);
         }
 
-        private void DeleteAllAddresses()
-        {
-            driver.FindElement(By.Id("MassCB")).Click();
-            acceptNextAlert = true;
-            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete .*? addresses[\\s\\S]$"));
-        }
+        // private void DeleteAllAddresses()
+        // {
+        //     driver.FindElement(By.Id("MassCB")).Click();
+        //     acceptNextAlert = true;
+        //     driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+        //     Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete .*? addresses[\\s\\S]$"));
+        // }
 
         private void GoToHomePage()
         {
