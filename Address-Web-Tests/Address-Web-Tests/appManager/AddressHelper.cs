@@ -81,9 +81,7 @@ namespace WebAddressbookTests
 
         public AddressHelper FillAddressData(AddressData addressData)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(addressData.Firstname);
+            Type(By.Name("firstname"), addressData.Firstname);
             try
             {
                 driver.FindElement(By.Name("middlename")).Clear();
