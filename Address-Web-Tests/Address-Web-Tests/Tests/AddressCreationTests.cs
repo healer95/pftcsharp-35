@@ -12,9 +12,7 @@ namespace WebAddressbookTests
         [Test]
         public void AddressCreationTest()
         {
-            applicationManager.Navigation.OpenHomePage();
-            applicationManager.Authentification.Login(new AccountData("admin", "secret"));
-                        AddressData addressdata = new AddressData("1name")
+            AddressData addressData = new AddressData("1name")
             {
                 Lastname = "lname",
                 Middlename = "mname",
@@ -40,11 +38,9 @@ namespace WebAddressbookTests
                 Phone2 = "5555",
                 Notes = "hello"
             };
-            applicationManager.Addresses.InitAddressCreation();
-            applicationManager.Addresses.FillAddressData(addressdata);
-            applicationManager.Addresses.SubmitAddressCreation();
+
+            applicationManager.Addresses.Create(addressData);
             applicationManager.Navigation.GoToHomePage();
-            applicationManager.Authentification.Logout();
         }
     }
 }

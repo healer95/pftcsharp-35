@@ -24,10 +24,10 @@ namespace WebAddressbookTests
             driver = new OpenQA.Selenium.Chrome.ChromeDriver(options);
             baseURL = "http://localhost:81/";
             
-            loginHelper = new LoginHelper(driver);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
-            addressHelper = new AddressHelper(driver);
+            loginHelper = new LoginHelper(this);
+            navigationHelper = new NavigationHelper(this, baseURL);
+            groupHelper = new GroupHelper(this);
+            addressHelper = new AddressHelper(this);
         }
 
         public LoginHelper Authentification
@@ -45,6 +45,11 @@ namespace WebAddressbookTests
         public AddressHelper Addresses
         {
             get { return addressHelper; }
+        }
+
+        public IWebDriver Driver
+        {
+            get { return driver; }
         }
 
         public void Stop()
