@@ -8,8 +8,9 @@ namespace WebAddressbookTests
 {
     public class AddressData
     {
-        #pragma warning disable CS0169 // 'never used'
-        #pragma warning disable IDE0044 // 'make readonly'
+#pragma warning disable CS0169 // 'never used'
+#pragma warning disable IDE0044 // 'make readonly'
+        
         private string firstname, middlename, lastname,
             nickname, title, company, address,
             home, mobile, work, fax,
@@ -18,7 +19,7 @@ namespace WebAddressbookTests
             aday, amonth, ayear,
             address2, phone2, notes;
 
-        public AddressData (string firstname)
+        public AddressData(string firstname)
         {
             this.firstname = firstname;
         }
@@ -28,15 +29,16 @@ namespace WebAddressbookTests
             this.lastname = lastname;
         }
 
-        private string temp;
-        public AddressData(string firstname, params string[] values)
-        {
-            this.firstname = firstname;
-            foreach (string temp in values)
-            {
-                this.temp = temp;
-            }
-        }
+        // не сработало
+        //private string temp;
+        //public AddressData(string firstname, params string[] values)
+        //{
+        //    this.firstname = firstname;
+        //    foreach (string temp in values)
+        //    {
+        //        try { this.value[temp] = temp; } catch { }
+        //    }
+        //}
 
         //Declairing get/set
         public string Firstname
