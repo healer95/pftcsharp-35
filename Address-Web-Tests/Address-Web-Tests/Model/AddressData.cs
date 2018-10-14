@@ -8,30 +8,15 @@ namespace WebAddressbookTests
 {
     public class AddressData
     {
-        private string firstname;
-        private string middlename = "";
-        private string lastname = "";
-        private string nickname = "";
-        private string title = "";
-        private string company = "";
-        private string address = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
-        private string fax = "";
-        private string email = "";
-        private string email2 = "";
-        private string email3 = "";
-        private string homepage = "";
-        private string bday = "";
-        private string bmonth = "";
-        private string byear = "";
-        private string aday = "";
-        private string amonth = "";
-        private string ayear = "";
-        private string address2 = "";
-        private string phone2 = "";
-        private string notes = "";
+        #pragma warning disable CS0169 // 'never used'
+        #pragma warning disable IDE0044 // 'make readonly'
+        private string firstname, middlename, lastname,
+            nickname, title, company, address,
+            home, mobile, work, fax,
+            email, email2, email3, homepage,
+            bday, bmonth, byear,
+            aday, amonth, ayear,
+            address2, phone2, notes;
 
         public AddressData (string firstname)
         {

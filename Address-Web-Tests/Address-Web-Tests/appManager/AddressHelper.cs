@@ -9,51 +9,17 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class TestBase
+    public class AddressHelper : BaseHelper
     {
-        protected IWebDriver driver;
-        private StringBuilder verificationErrors;
-        protected string baseURL;
-        protected LoginHelper loginHelper;
-        protected NavigationHelper navigationHelper;
-        protected GroupHelper groupHelper;
-        // private bool acceptNextAlert = true;
+        public AddressHelper(IWebDriver driver) : base(driver) { }
 
-        [SetUp]
-        protected void SetupTest() 
-        {
-            OpenQA.Selenium.Chrome.ChromeOptions options = new OpenQA.Selenium.Chrome.ChromeOptions();
-            driver = new OpenQA.Selenium.Chrome.ChromeDriver(options);
-            baseURL = "http://localhost:81/";
-            verificationErrors = new StringBuilder();
-
-            loginHelper = new LoginHelper(driver);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
-        }
-
-        [TearDown]
-        //Selenium func
-        protected void TeardownTest() 
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
-        
         //Address Creation
-        protected void InitAddressCreation()
+        public void InitAddressCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
         }
 
-        protected void FillAddressData(AddressData addressdata)
+        public void FillAddressData(AddressData addressdata)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -102,14 +68,12 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("notes")).SendKeys(addressdata.Notes);
         }
 
-        protected void SubmitAddressCreation()
+        public void SubmitAddressCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
         }
 
-
-
-        // private void DeleteAllAddresses()
+        // public void DeleteAllAddresses()
         // {
         //     driver.FindElement(By.Id("MassCB")).Click();
         //     acceptNextAlert = true;
