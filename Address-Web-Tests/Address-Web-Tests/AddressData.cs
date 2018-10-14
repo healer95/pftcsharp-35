@@ -33,7 +33,6 @@ namespace WebAddressbookTests
         private string phone2 = "";
         private string notes = "";
 
-
         public AddressData (string firstname)
         {
             this.firstname = firstname;
@@ -44,7 +43,17 @@ namespace WebAddressbookTests
             this.lastname = lastname;
         }
 
+        private string temp;
+        public AddressData(string firstname, params string[] values)
+        {
+            this.firstname = firstname;
+            foreach (string temp in values)
+            {
+                this.temp = temp;
+            }
+        }
 
+        //Declairing get/set
         public string Firstname
         {
             get { return firstname; }
@@ -55,20 +64,6 @@ namespace WebAddressbookTests
             get { return lastname; }
             set { lastname = value; }
         }
-
-        //maybe will work
-
-        private string temp;
-
-        public AddressData(string firstname, params string[] values)
-        {
-            this.firstname = firstname;
-            foreach (string temp in values)
-            {
-                this.temp = temp;
-            }
-        }
-        
         public string Middlename {get; set;}
         public string Nickname {get; set;}
         public string Title {get; set;}

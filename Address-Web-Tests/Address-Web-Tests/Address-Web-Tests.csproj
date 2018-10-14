@@ -62,8 +62,13 @@
     <Compile Include="AccountData.cs" />
     <Compile Include="AddressCreationTests.cs" />
     <Compile Include="AddressData.cs" />
-    <Compile Include="CommonMethods.cs" />
     <Compile Include="GroupData.cs" />
+    <Compile Include="GroupHelper.cs" />
+    <Compile Include="GroupRemovalTest.cs" />
+    <Compile Include="HelperBase.cs" />
+    <Compile Include="LoginHelper.cs" />
+    <Compile Include="NavigationHelper.cs" />
+    <Compile Include="TestBase.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupCreationTests.cs" />

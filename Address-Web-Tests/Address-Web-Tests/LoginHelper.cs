@@ -5,19 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public static class CommonMethods
+  
+    public class LoginHelper : BaseHelper
     {
-        public static void OpenHomePage(IWebDriver driver, string baseURL)
-        {
-            driver.Navigate().GoToUrl(baseURL + "addressbook/");
-        }
+        public LoginHelper (IWebDriver driver) : base(driver) { }
 
-        public static void Login(IWebDriver driver, AccountData account)
+        public void Login(AccountData account)
         {
             driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Clear();
@@ -27,7 +24,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Id("LoginForm")).Submit();
         }
 
-        public static void Logout(IWebDriver driver)
+        public void Logout()
         {
             driver.FindElement(By.LinkText("Logout")).Click();
         }
