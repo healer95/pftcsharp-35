@@ -23,8 +23,8 @@ namespace WebAddressbookTests
         {
             if (text != null)
             {
-                driver.FindElement(By.Name("group_name")).Clear();
-                driver.FindElement(By.Name("group_name")).SendKeys(text);
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
             }
         }
     }

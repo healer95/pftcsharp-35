@@ -28,7 +28,20 @@ namespace WebAddressbookTests
             this.firstname = firstname;
             this.lastname = lastname;
         }
-
+        public AddressData(string firstname, string lastname, string middlename, string nickname, 
+            string title, string company, string address,
+            string home, string mobile, string work, string fax, 
+            string email, string email2, string email3, string homepage, 
+            string bday, string bmonth, string byear, string aday, string amonth, string ayear, 
+            string address2, string phone2, string notes)
+        {
+            this.firstname = firstname; this.lastname = lastname; this.middlename = middlename; this.nickname = nickname;
+            this.title = title; this.company = company; this.address = address;
+            this.email = email; this.email2 = email2; this.email3 = email3;
+            this.bday = bday; this.bmonth = bmonth; this.byear = byear;
+            this.aday = aday; this.amonth = amonth; this.ayear = ayear;
+            this.address2 = address2; this.phone2 = phone2; this.notes = notes;
+        }
         // не сработало
         //private string temp;
         //public AddressData(string firstname, params string[] values)

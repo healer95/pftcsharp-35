@@ -42,6 +42,20 @@ namespace WebAddressbookTests
             applicationManager.Addresses.Create(addressData);
             applicationManager.Navigation.GoToHomePage();
         }
+        [Test]
+        public void AddressCreationTest2()
+        {
+            AddressData addressData = new AddressData("1name")
+            {
+                Lastname = "1lname",
+                Middlename = "1mname",
+                Nickname = "1nname",
+                Notes = "hello"
+            };
+
+            applicationManager.Addresses.Create(addressData);
+            applicationManager.Navigation.GoToHomePage();
+        }
 
         [Test]
         public void EmptyAddressCreationTest()
