@@ -20,17 +20,26 @@ namespace WebAddressbookTests
 
         public void OpenHomePage()
         {
-            driver.Navigate().GoToUrl(baseURL + "addressbook/");
+            if (driver.Url != baseURL + "addressbook/")
+            {
+                driver.Navigate().GoToUrl(baseURL + "addressbook/");
+            }
         }
 
         public void GoToHomePage()
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            if (driver.Url != baseURL + "addressbook/")
+            {
+                driver.FindElement(By.LinkText("home")).Click();
+            }
         }
 
         public void GoToGroupsPage()
         {
-            driver.FindElement(By.LinkText("groups")).Click();
+            if (driver.Url != baseURL + "addressbook/group.php" && !IsElementPresent(By.Name("delete")))
+            {
+                driver.FindElement(By.LinkText("groups")).Click();
+            }
         }
     }
 }

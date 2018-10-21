@@ -15,16 +15,21 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(int v)
         {
-            manager.Navigation.GoToGroupsPage();
+            if (!IsOnGroupsPage()) { manager.Navigation.GoToGroupsPage(); }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
         }
 
+        public bool IsOnGroupsPage()
+        {
+            return driver.Url.Contains("/group.php") && !IsElementPresent(By.Name("delete"));
+        }
+
         public GroupHelper Modyfy(int v, GroupData newData)
         {
-            manager.Navigation.GoToGroupsPage();
+            if (!IsOnGroupsPage()) { manager.Navigation.GoToGroupsPage(); }
             SelectGroup(v);
             InitGroupModification();
             FillGroupData(newData);
@@ -47,7 +52,7 @@ namespace WebAddressbookTests
 
         public GroupHelper Create(GroupData groupData)
         {
-            manager.Navigation.GoToGroupsPage();
+            if (!IsOnGroupsPage()) { manager.Navigation.GoToGroupsPage(); }
             InitGroupCreation();
             FillGroupData(groupData);
             SubmitGroupCreation();
@@ -71,8 +76,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-
-
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
@@ -82,8 +85,21 @@ namespace WebAddressbookTests
         //Group Removal
         public GroupHelper SelectGroup(int index)
         {
+            CheckHasGoup();
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
+        }
+
+        public void CheckHasGoup()
+        {
+            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
+            {
+                InitGroupCreation();
+                GroupData groupData = new GroupData("");
+                FillGroupData(groupData);
+                SubmitGroupCreation();
+                ReturnToGroupsPage();
+            }
         }
 
         public GroupHelper RemoveGroup()

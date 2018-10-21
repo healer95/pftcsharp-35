@@ -20,6 +20,21 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private void CheckHasAddress()
+        {
+            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
+            {
+                AddressData addressData = new AddressData("");
+                Create(addressData);
+                manager.Navigation.GoToHomePage();
+            }
+        }
+
+        public bool IsOnHomePage()
+        {
+            return driver.Url.EndsWith("addressbook/") && !IsElementPresent(By.Name("delete"));
+        }
+
         public AddressHelper Create (AddressData addressData)
         {
             InitAddressCreation();
@@ -30,7 +45,7 @@ namespace WebAddressbookTests
 
         public AddressHelper Remove(int v)
         {
-            manager.Navigation.GoToHomePage();
+            if (!IsOnHomePage()) { manager.Navigation.GoToHomePage(); }
             SelectAddress(v);
             RemoveAddress();
             manager.Navigation.GoToHomePage();
@@ -39,6 +54,7 @@ namespace WebAddressbookTests
 
         public AddressHelper RemoveAddress()
         {
+            CheckHasAddress();
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             return this;
@@ -49,13 +65,14 @@ namespace WebAddressbookTests
             // несмотря на то что код одинаковый с группами, 
             // пусть будет отдельный метод,
             // т.к. не факт что всегда и везде будет одинаково
+            CheckHasAddress();
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
 
         public AddressHelper Modyfy(int v, AddressData newData)
         {
-            manager.Navigation.GoToHomePage();
+            if (!IsOnHomePage()) { manager.Navigation.GoToHomePage(); }
             SelectAddress(v);
             InitAddressModification(1);
             FillAddressData(newData);
