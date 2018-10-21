@@ -22,6 +22,18 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigation.GoToGroupsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
+
         public bool IsOnGroupsPage()
         {
             return driver.Url.Contains("/group.php") && !IsElementPresent(By.Name("delete"));
@@ -86,7 +98,7 @@ namespace WebAddressbookTests
         public GroupHelper SelectGroup(int index)
         {
             CheckHasGoup();
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
 

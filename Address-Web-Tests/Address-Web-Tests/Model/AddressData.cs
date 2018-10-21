@@ -42,16 +42,6 @@ namespace WebAddressbookTests
             this.aday = aday; this.amonth = amonth; this.ayear = ayear;
             this.address2 = address2; this.phone2 = phone2; this.notes = notes;
         }
-        // не сработало
-        //private string temp;
-        //public AddressData(string firstname, params string[] values)
-        //{
-        //    this.firstname = firstname;
-        //    foreach (string temp in values)
-        //    {
-        //        try { this.value[temp] = temp; } catch { }
-        //    }
-        //}
 
         //Declairing get/set
         public string Firstname

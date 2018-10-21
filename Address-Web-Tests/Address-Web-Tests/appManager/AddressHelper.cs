@@ -66,7 +66,7 @@ namespace WebAddressbookTests
             // пусть будет отдельный метод,
             // т.к. не факт что всегда и везде будет одинаково
             CheckHasAddress();
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
 
@@ -74,7 +74,7 @@ namespace WebAddressbookTests
         {
             if (!IsOnHomePage()) { manager.Navigation.GoToHomePage(); }
             SelectAddress(v);
-            InitAddressModification(1);
+            InitAddressModification(0);
             FillAddressData(newData);
             SubmitAddressModification();
             manager.Navigation.GoToHomePage();
