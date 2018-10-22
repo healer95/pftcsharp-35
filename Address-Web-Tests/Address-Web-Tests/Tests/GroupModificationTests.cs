@@ -18,8 +18,9 @@ namespace WebAddressbookTests
                 Header = "q",
                 Footer = "w"
             };
-
-            applicationManager.Groups.Modyfy(1, newData);
+            applicationManager.Navigation.GoToGroupsPage();
+            applicationManager.Groups.CheckHasGoup();
+            applicationManager.Groups.Modyfy(0, newData);
         }
     }
 }

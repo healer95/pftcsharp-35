@@ -97,7 +97,6 @@ namespace WebAddressbookTests
         //Group Removal
         public GroupHelper SelectGroup(int index)
         {
-            CheckHasGoup();
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
