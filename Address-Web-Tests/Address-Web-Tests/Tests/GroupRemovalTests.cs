@@ -13,6 +13,8 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
+            applicationManager.Navigation.GoToGroupsPage();
+            applicationManager.Groups.CheckHasGoup();
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Remove(0);
             List<GroupData> newGroups = applicationManager.Groups.GetGroupList();

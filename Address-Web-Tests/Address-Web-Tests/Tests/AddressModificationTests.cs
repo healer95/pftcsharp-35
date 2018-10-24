@@ -39,8 +39,9 @@ namespace WebAddressbookTests
                 Phone2 = "new5555",
                 Notes = "newhello"
             };
-
-            applicationManager.Addresses.Modyfy(1, newData);
+            applicationManager.Navigation.GoToHomePage();
+            applicationManager.Addresses.CheckHasAddress();
+            applicationManager.Addresses.Modyfy(0, newData);
         }
     }
 }

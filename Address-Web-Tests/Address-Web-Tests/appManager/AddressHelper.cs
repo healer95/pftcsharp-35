@@ -20,7 +20,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private void CheckHasAddress()
+        public void CheckHasAddress()
         {
             if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
             {
@@ -54,7 +54,6 @@ namespace WebAddressbookTests
 
         public AddressHelper RemoveAddress()
         {
-            CheckHasAddress();
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             return this;
@@ -65,7 +64,6 @@ namespace WebAddressbookTests
             // несмотря на то что код одинаковый с группами, 
             // пусть будет отдельный метод,
             // т.к. не факт что всегда и везде будет одинаково
-            CheckHasAddress();
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
@@ -92,7 +90,7 @@ namespace WebAddressbookTests
 
         private AddressHelper InitAddressModification(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+1) +"]/td[8]/a/img")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+2) +"]/td[8]/a/img")).Click();
             return this;
         }
 

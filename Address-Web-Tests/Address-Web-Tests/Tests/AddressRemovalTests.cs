@@ -12,6 +12,8 @@ namespace WebAddressbookTests
         [Test]
         public void AddressRemovalTest()
         {
+            applicationManager.Navigation.GoToHomePage();
+            applicationManager.Addresses.CheckHasAddress();
             applicationManager.Addresses.Remove(0);
         }
     }
