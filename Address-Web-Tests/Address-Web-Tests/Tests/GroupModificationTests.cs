@@ -18,8 +18,14 @@ namespace WebAddressbookTests
                 Header = "q",
                 Footer = "w"
             };
+            List<GroupData> oldgroups = applicationManager.Groups.GetGroupList();
 
             applicationManager.Groups.Modyfy(1, newData);
+            List<GroupData> newgroups = applicationManager.Groups.GetGroupList();
+            oldgroups[0].Name = newData.Name;
+            oldgroups.Sort();
+            newgroups.Sort();
+            Assert.AreEqual(oldgroups.Count + 1, newgroups.Count);
         }
     }
 }
