@@ -17,7 +17,7 @@ namespace WebAddressbookTests
             applicationManager.Navigation.GoToGroupsPage();
             applicationManager.Groups.CheckHasGoup();
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
-
+            GroupData toBeRemoved = oldGroups[0];
             applicationManager.Groups.Remove(0);
 
             Assert.AreEqual(oldGroups.Count - 1, applicationManager.Groups.GetGroupCount());
@@ -26,6 +26,9 @@ namespace WebAddressbookTests
             oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
             newGroups = newGroups.OrderBy(x => x.Name).ToList();
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            { Assert.AreNotEqual(group.ID, toBeRemoved.ID); }
         }
     }
 }

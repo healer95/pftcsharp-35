@@ -12,6 +12,7 @@ namespace WebAddressbookTests
     public class AddressHelper : BaseHelper
     {
         public AddressHelper(ApplicationManager manager) : base(manager) { }
+        private List<AddressData> addressCache = null;
 
         //Address Creation
         public AddressHelper InitAddressCreation()
@@ -54,25 +55,29 @@ namespace WebAddressbookTests
 
         internal List<AddressData> GetAddressList()
         {
-            List<AddressData> addresses = new List<AddressData>();
-            int i = 0;
-            manager.Navigation.GoToHomePage();
-            ICollection<IWebElement> rows = driver.FindElements(By.CssSelector("tr[name=entry"));
-            foreach (IWebElement row in rows)
+            if (addressCache == null)
             {
-                var cells = row.FindElements(By.CssSelector("td"));
-                addresses.Add(new AddressData(row.Text));
-                addresses[i].Lastname = cells[1].Text;
-                addresses[i].Firstname = cells[2].Text;
-                i++;
+                addressCache = new List<AddressData>();
+                int i = 0;
+                manager.Navigation.GoToHomePage();
+                ICollection<IWebElement> rows = driver.FindElements(By.CssSelector("tr[name=entry"));
+                foreach (IWebElement row in rows)
+                {
+                    var cells = row.FindElements(By.CssSelector("td"));
+                    addressCache.Add(new AddressData(row.Text));
+                    addressCache[i].Lastname = cells[1].Text;
+                    addressCache[i].Firstname = cells[2].Text;
+                    i++;
+                }
             }
-            return addresses;
+            return addressCache;
         }
 
         public AddressHelper RemoveAddress()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            addressCache = null;
             return this;
         }
 
@@ -103,6 +108,7 @@ namespace WebAddressbookTests
             // пусть будет отдельный метод,
             // т.к. не факт что всегда и везде будет одинаково
             driver.FindElement(By.Name("update")).Click();
+            addressCache = null;
             return this;
         }
 
@@ -236,6 +242,7 @@ namespace WebAddressbookTests
         public AddressHelper SubmitAddressCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            addressCache = null;
             return this;
         }
 

@@ -21,13 +21,13 @@ namespace WebAddressbookTests
 
         public AddressData(string firstname)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
             Lastname = "";
         }
         public AddressData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
         public AddressData(string firstname, string lastname, string middlename, string nickname, 
             string title, string company, string address,
@@ -36,25 +36,17 @@ namespace WebAddressbookTests
             string bday, string bmonth, string byear, string aday, string amonth, string ayear, 
             string address2, string phone2, string notes)
         {
-            this.firstname = firstname; this.lastname = lastname; this.middlename = middlename; this.nickname = nickname;
-            this.title = title; this.company = company; this.address = address;
-            this.email = email; this.email2 = email2; this.email3 = email3;
-            this.bday = bday; this.bmonth = bmonth; this.byear = byear;
-            this.aday = aday; this.amonth = amonth; this.ayear = ayear;
-            this.address2 = address2; this.phone2 = phone2; this.notes = notes;
+            Firstname = firstname; Lastname = lastname; Middlename = middlename; Nickname = nickname;
+            Title = title; Company = company; Address = address;
+            Email = email; Email2 = email2; Email3 = email3;
+            Bday = bday; Bmonth = bmonth; Byear = byear;
+            Aday = aday; Amonth = amonth; Ayear = ayear;
+            Address2 = address2; Phone2 = phone2; Notes = notes;
         }
 
         //Declairing get/set
-        public string Firstname
-        {
-            get { return firstname; }
-            set { firstname = value; }
-        }
-        public string Lastname
-        {
-            get { return lastname; }
-            set { lastname = value; }
-        }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
         public string Middlename {get; set;}
         public string Nickname {get; set;}
         public string Title {get; set;}

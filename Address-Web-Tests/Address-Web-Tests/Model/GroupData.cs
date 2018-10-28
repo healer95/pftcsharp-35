@@ -9,10 +9,6 @@ namespace WebAddressbookTests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
-        private string name;
-        private string header="";
-        private string footer="";
-
         public bool Equals(GroupData other)
         {
             if (Object.ReferenceEquals(other, null)) { return false; }
@@ -38,30 +34,18 @@ namespace WebAddressbookTests
 
         public GroupData(string name)
         {
-            this.name = name;
+            Name = name;
         }
         public GroupData(string name, string header, string footer)
         {
-            this.name = name;
-            this.header = header;
-            this.footer = footer;
+            Name = name;
+            Header = header;
+            Footer = footer;
         }
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public string Header
-        {
-            get { return header; }
-            set { header = value; }
-        }
-        public string Footer
-        {
-            get { return footer; }
-            set { footer = value; }
-        }
-
+        public string Name { get; set; }
+        public string Header { get; set; }
+        public string Footer { get; set; }
+        public string ID { get; set; }
     }
 }
