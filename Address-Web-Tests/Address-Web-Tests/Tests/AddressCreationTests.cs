@@ -2,6 +2,8 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -38,8 +40,14 @@ namespace WebAddressbookTests
                 Phone2 = "5555",
                 Notes = "hello"
             };
+            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
 
             applicationManager.Addresses.Create(addressData);
+            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
+            oldAddresses.Add(addressData);
+            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            Assert.AreEqual(oldAddresses, newAddresses);
             applicationManager.Navigation.GoToHomePage();
         }
         [Test]
@@ -52,8 +60,14 @@ namespace WebAddressbookTests
                 Nickname = "1nname",
                 Notes = "hello"
             };
+            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
 
             applicationManager.Addresses.Create(addressData);
+            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
+            oldAddresses.Add(addressData);
+            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            Assert.AreEqual(oldAddresses, newAddresses);
             applicationManager.Navigation.GoToHomePage();
         }
 
@@ -61,8 +75,14 @@ namespace WebAddressbookTests
         public void EmptyAddressCreationTest()
         {
             AddressData addressData = new AddressData("") {};
+            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
 
             applicationManager.Addresses.Create(addressData);
+            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
+            oldAddresses.Add(addressData);
+            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            Assert.AreEqual(oldAddresses, newAddresses);
             applicationManager.Navigation.GoToHomePage();
         }
     }

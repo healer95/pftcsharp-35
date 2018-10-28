@@ -41,7 +41,15 @@ namespace WebAddressbookTests
             };
             applicationManager.Navigation.GoToHomePage();
             applicationManager.Addresses.CheckHasAddress();
+
+            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
             applicationManager.Addresses.Modyfy(0, newData);
+            applicationManager.Navigation.GoToHomePage();
+
+            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
+            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
+            Assert.AreNotEqual(oldAddresses, newAddresses);
         }
     }
 }

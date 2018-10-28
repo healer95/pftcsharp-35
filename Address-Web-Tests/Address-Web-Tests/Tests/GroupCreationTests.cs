@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -18,14 +19,14 @@ namespace WebAddressbookTests
                 Header = "1",
                 Footer = "2"
             };
-            List<GroupData> oldgroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             
             applicationManager.Groups.Create(groupData);
-            List<GroupData> newgroups = applicationManager.Groups.GetGroupList();
-            oldgroups.Add(groupData);
-            oldgroups.Sort();
-            newgroups.Sort();
-            Assert.AreEqual(oldgroups.Count + 1, newgroups.Count);
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            oldGroups.Add(groupData);
+            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
+            newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
         [Test]
@@ -36,11 +37,14 @@ namespace WebAddressbookTests
                 Header = "",
                 Footer = ""
             };
-            List<GroupData> oldgroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
 
             applicationManager.Groups.Create(groupData);
-            List<GroupData> newgroups = applicationManager.Groups.GetGroupList();
-            Assert.AreEqual(oldgroups.Count + 1, newgroups.Count);
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            oldGroups.Add(groupData);
+            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
+            newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
         [Test]
@@ -51,11 +55,14 @@ namespace WebAddressbookTests
                 Header = "",
                 Footer = ""
             };
-            List<GroupData> oldgroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
 
             applicationManager.Groups.Create(groupData);
-            List<GroupData> newgroups = applicationManager.Groups.GetGroupList();
-            Assert.AreEqual(oldgroups.Count + 1, newgroups.Count);
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            oldGroups.Add(groupData);
+            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
+            newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

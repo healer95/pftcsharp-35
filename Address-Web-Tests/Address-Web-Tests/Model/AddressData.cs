@@ -1,4 +1,7 @@
-﻿using System;
+﻿#pragma warning disable CS0169 // 'never used'
+#pragma warning disable IDE0044 // 'make readonly'
+#pragma warning disable IDE0041 // Use 'is null' check
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +9,8 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class AddressData
+    public class AddressData : IEquatable<AddressData>, IComparable<AddressData>
     {
-#pragma warning disable CS0169 // 'never used'
-#pragma warning disable IDE0044 // 'make readonly'
-        
         private string firstname, middlename, lastname,
             nickname, title, company, address,
             home, mobile, work, fax,
@@ -22,6 +22,7 @@ namespace WebAddressbookTests
         public AddressData(string firstname)
         {
             this.firstname = firstname;
+            Lastname = "";
         }
         public AddressData(string firstname, string lastname)
         {
@@ -76,5 +77,36 @@ namespace WebAddressbookTests
         public string Address2 {get; set;}
         public string Phone2 {get; set;}
         public string Notes {get; set;}
+
+        public int CompareTo(AddressData other)
+        {
+            if (Object.ReferenceEquals(other, null)) { return 1; }
+            if (Firstname.CompareTo(other.Firstname) == 0 && Lastname.CompareTo(other.Lastname) == 0) { return 0; }
+            else return 1;
+        }
+
+        public bool Equals(AddressData other)
+        {
+            if (Object.ReferenceEquals(other, null)) { return false; }
+            if (Object.ReferenceEquals(this, other)) { return true; }
+            return (Firstname == other.Firstname && Lastname == other.Lastname);
+        }
+
+        public bool NotEquals(AddressData other)
+        {
+            if (Object.ReferenceEquals(other, null)) { return true; }
+            if (Object.ReferenceEquals(this, other)) { return false; }
+            return (Firstname != other.Firstname || Lastname != other.Lastname);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Lastname.GetHashCode() + Firstname.GetHashCode());
+        }
+
+        public override string ToString()
+        {
+            return Lastname + ' ' + Firstname;
+        }
     }
 }

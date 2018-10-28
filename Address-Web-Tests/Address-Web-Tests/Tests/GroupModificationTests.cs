@@ -18,14 +18,16 @@ namespace WebAddressbookTests
                 Header = "q",
                 Footer = "w"
             };
-            List<GroupData> oldgroups = applicationManager.Groups.GetGroupList();
+            applicationManager.Groups.CheckHasGoup();
 
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Modyfy(1, newData);
-            List<GroupData> newgroups = applicationManager.Groups.GetGroupList();
-            oldgroups[0].Name = newData.Name;
-            oldgroups.Sort();
-            newgroups.Sort();
-            Assert.AreEqual(oldgroups.Count + 1, newgroups.Count);
+
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
+            newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

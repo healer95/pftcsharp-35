@@ -52,6 +52,23 @@ namespace WebAddressbookTests
             return this;
         }
 
+        internal List<AddressData> GetAddressList()
+        {
+            List<AddressData> addresses = new List<AddressData>();
+            int i = 0;
+            manager.Navigation.GoToHomePage();
+            ICollection<IWebElement> rows = driver.FindElements(By.CssSelector("tr[name=entry"));
+            foreach (IWebElement row in rows)
+            {
+                var cells = row.FindElements(By.CssSelector("td"));
+                addresses.Add(new AddressData(row.Text));
+                addresses[i].Lastname = cells[1].Text;
+                addresses[i].Firstname = cells[2].Text;
+                i++;
+            }
+            return addresses;
+        }
+
         public AddressHelper RemoveAddress()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -73,9 +90,10 @@ namespace WebAddressbookTests
             if (!IsOnHomePage()) { manager.Navigation.GoToHomePage(); }
             SelectAddress(v);
             InitAddressModification(0);
+            string a = driver.FindElement(By.Name("lastname")).ToString();
             FillAddressData(newData);
+            if (a == newData.Lastname) { driver.FindElement(By.Name("middlename")).SendKeys("1"+a); }
             SubmitAddressModification();
-            manager.Navigation.GoToHomePage();
             return this;
         }
 
