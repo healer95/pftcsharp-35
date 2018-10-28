@@ -29,7 +29,7 @@ namespace WebAddressbookTests
         {
             return IsLoggedIn()
                 && driver.FindElement(By.XPath("//b")).Text
-                    == "(" + account.Username + ")";
+                    == String.Format("(${0})",account.Username);
         }
 
         public bool IsLoggedIn()
