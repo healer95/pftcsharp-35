@@ -64,10 +64,7 @@ namespace WebAddressbookTests
                 foreach (IWebElement row in rows)
                 {
                     var cells = row.FindElements(By.CssSelector("td"));
-                    addressCache.Add(new AddressData(row.Text));
-                    addressCache[i].Lastname = cells[1].Text;
-                    addressCache[i].Firstname = cells[2].Text;
-                    i++;
+                    addressCache.Add(new AddressData(cells[2].Text, cells[1].Text));
                 }
             }
             return addressCache;
