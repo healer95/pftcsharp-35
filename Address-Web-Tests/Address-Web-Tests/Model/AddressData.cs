@@ -11,13 +11,14 @@ namespace WebAddressbookTests
 {
     public class AddressData : IEquatable<AddressData>, IComparable<AddressData>
     {
-        private string firstname, middlename, lastname,
-            nickname, title, company, address,
-            home, mobile, work, fax,
-            email, email2, email3, homepage,
-            bday, bmonth, byear,
-            aday, amonth, ayear,
-            address2, phone2, notes;
+        //private string firstname, middlename, lastname,
+        //    nickname, title, company, address,
+        //    home, mobile, work, fax,
+        //    email, email2, email3, homepage,
+        //    bday, bmonth, byear,
+        //    aday, amonth, ayear,
+        //    address2, phone2, notes;
+        private string allPhones, allEmails;
 
         public AddressData(string firstname)
         {
@@ -69,7 +70,37 @@ namespace WebAddressbookTests
         public string Address2 {get; set;}
         public string Phone2 {get; set;}
         public string Notes {get; set;}
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null) { return allPhones; }
+                else { return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Phone2)).Trim(); }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null) { return allEmails; }
+                else { return (CleanUp(Email) + CleanUp(Email2) + CleanUp(Email3)).Trim(); }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
 
+        private string CleanUp(string value)
+        {
+            if (value == null || value == "") { return ""; }
+            return value.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+        
         public int CompareTo(AddressData other)
         {
             if (Object.ReferenceEquals(other, null)) { return 1; }

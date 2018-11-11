@@ -59,7 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="appManager\ContactHelper.cs" />
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="Tests\AddressCreationTests.cs" />
     <Compile Include="Model\AddressData.cs" />
@@ -69,7 +68,7 @@
     <Compile Include="appManager\GroupHelper.cs" />
     <Compile Include="Tests\AddressModificationTests.cs" />
     <Compile Include="Tests\AuthTestBase.cs" />
-    <Compile Include="Tests\ContactInformationTest.cs" />
+    <Compile Include="Tests\AddressInformationTest.cs" />
     <Compile Include="Tests\GroupModificationTests.cs" />
     <Compile Include="Tests\AddressRemovalTests.cs" />
     <Compile Include="Tests\GroupRemovalTests.cs" />

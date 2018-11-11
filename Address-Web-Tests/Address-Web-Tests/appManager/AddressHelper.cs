@@ -14,6 +14,53 @@ namespace WebAddressbookTests
         public AddressHelper(ApplicationManager manager) : base(manager) { }
         private List<AddressData> addressCache = null;
 
+        public AddressData GetAddressInformationFromTable(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
+            string lastname = cells[1].Text;
+            string firstname = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+            string allEmails = cells[4].Text;
+
+            return new AddressData(firstname, lastname)
+            {
+                //Lastname = lastname,
+                Address = address,
+                AllPhones = allPhones,
+                AllEmails = allEmails
+            };
+        }
+
+        public AddressData GetAddressInformationFromForm(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            InitAddressModification(index);
+            string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            string home = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string work = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+
+            return new AddressData(firstname, lastname)
+            {
+                Address = address,
+                Home = home,
+                Mobile = mobile,
+                Work = work,
+                Email = email,
+                Email2 = email2,
+                Email3 = email3,
+                Phone2 = phone2
+            };
+        }
+
         //Address Creation
         public AddressHelper InitAddressCreation()
         {
@@ -58,7 +105,6 @@ namespace WebAddressbookTests
             if (addressCache == null)
             {
                 addressCache = new List<AddressData>();
-                int i = 0;
                 manager.Navigation.GoToHomePage();
                 ICollection<IWebElement> rows = driver.FindElements(By.CssSelector("tr[name=entry"));
                 foreach (IWebElement row in rows)
