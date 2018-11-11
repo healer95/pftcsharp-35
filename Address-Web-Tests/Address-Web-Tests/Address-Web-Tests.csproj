@@ -67,6 +67,7 @@
     <Compile Include="Model\GroupData.cs" />
     <Compile Include="appManager\GroupHelper.cs" />
     <Compile Include="Tests\AddressModificationTests.cs" />
+    <Compile Include="Tests\AddressSearchTests.cs" />
     <Compile Include="Tests\AuthTestBase.cs" />
     <Compile Include="Tests\AddressInformationTest.cs" />
     <Compile Include="Tests\GroupModificationTests.cs" />

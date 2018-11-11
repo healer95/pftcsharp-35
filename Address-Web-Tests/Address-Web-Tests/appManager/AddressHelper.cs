@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -13,6 +14,14 @@ namespace WebAddressbookTests
     {
         public AddressHelper(ApplicationManager manager) : base(manager) { }
         private List<AddressData> addressCache = null;
+
+        public int GetNumberOfResults()
+        {
+            manager.Navigation.GoToHomePage();
+            string text=driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
 
         public AddressData GetAddressInformationFromTable(int index)
         {
