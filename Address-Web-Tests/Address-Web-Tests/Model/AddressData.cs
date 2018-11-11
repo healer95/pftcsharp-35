@@ -19,8 +19,12 @@ namespace WebAddressbookTests
         //    bday, bmonth, byear,
         //    aday, amonth, ayear,
         //    address2, phone2, notes;
-        private string allPhones, allEmails;
+        private string allPhones, allEmails, allData;
 
+        public AddressData()
+        {
+            if (AllData == null) { Firstname = ""; }
+        }
         public AddressData(string firstname)
         {
             Firstname = firstname;
@@ -93,6 +97,36 @@ namespace WebAddressbookTests
             set
             {
                 allEmails = value;
+            }
+        }
+        public string AllData
+        {
+            get
+            {
+                return allData;
+                    //1name mname lname\r\
+                    //nnname\r\
+                    //ntitle\r\n
+                    //companyname\r\n
+                    //address\r\n
+                    //\r\n
+                    //H: 5551\r\n
+                    //M: 5552\r\n
+                    //W: 5553\r\n
+                    //F: 5554\r\n\r\n
+                    //1@1.1\r\n
+                    //2@2.2\r\n
+                    //3@3.3\r\n
+                    //Homepage:\r\n1.1\r\n\r\n
+                    //Birthday 1.January 1999(19)\r\n
+                    //Anniversary 2.February 2000(18)\r\n\r\n
+                    //address2\r\n\r\n
+                    //P: 5555\r\n\r\n
+                    //hello
+            }
+            set
+            {
+                allData = value;
             }
         }
 

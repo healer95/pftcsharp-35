@@ -42,6 +42,15 @@ namespace WebAddressbookTests
             };
         }
 
+        public AddressData GetAddressInformationFromDetails(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            InitAddressDetails(index);
+            string allData = driver.FindElement(By.Id("content")).Text;
+            return new AddressData()
+            { AllData = allData };
+        }
+
         public AddressData GetAddressInformationFromForm(int index)
         {
             manager.Navigation.GoToHomePage();
@@ -57,8 +66,9 @@ namespace WebAddressbookTests
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
             string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
-            return new AddressData(firstname, lastname)
+            return new AddressData(firstname)
             {
+                Lastname = lastname,
                 Address = address,
                 Home = home,
                 Mobile = mobile,
@@ -74,6 +84,18 @@ namespace WebAddressbookTests
         public AddressHelper InitAddressCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
+        private AddressHelper InitAddressModification(int index)
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td[8]/a/img")).Click();
+            return this;
+        }
+
+        private AddressHelper InitAddressDetails(int index)
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td[7]/a/img")).Click();
             return this;
         }
 
@@ -161,12 +183,6 @@ namespace WebAddressbookTests
             // т.к. не факт что всегда и везде будет одинаково
             driver.FindElement(By.Name("update")).Click();
             addressCache = null;
-            return this;
-        }
-
-        private AddressHelper InitAddressModification(int index)
-        {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+2) +"]/td[8]/a/img")).Click();
             return this;
         }
 
