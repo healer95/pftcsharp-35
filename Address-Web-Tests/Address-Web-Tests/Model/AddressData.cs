@@ -21,10 +21,6 @@ namespace WebAddressbookTests
         //    address2, phone2, notes;
         private string allPhones, allEmails, allData;
 
-        public AddressData()
-        {
-            if (AllData == null) { Firstname = ""; }
-        }
         public AddressData(string firstname)
         {
             Firstname = firstname;
@@ -99,36 +95,6 @@ namespace WebAddressbookTests
                 allEmails = value;
             }
         }
-        public string AllData
-        {
-            get
-            {
-                return allData;
-                    //1name mname lname\r\
-                    //nnname\r\
-                    //ntitle\r\n
-                    //companyname\r\n
-                    //address\r\n
-                    //\r\n
-                    //H: 5551\r\n
-                    //M: 5552\r\n
-                    //W: 5553\r\n
-                    //F: 5554\r\n\r\n
-                    //1@1.1\r\n
-                    //2@2.2\r\n
-                    //3@3.3\r\n
-                    //Homepage:\r\n1.1\r\n\r\n
-                    //Birthday 1.January 1999(19)\r\n
-                    //Anniversary 2.February 2000(18)\r\n\r\n
-                    //address2\r\n\r\n
-                    //P: 5555\r\n\r\n
-                    //hello
-            }
-            set
-            {
-                allData = value;
-            }
-        }
 
         private string CleanUp(string value)
         {
@@ -149,6 +115,71 @@ namespace WebAddressbookTests
             if (Object.ReferenceEquals(this, other)) { return true; }
             return Firstname.Equals(other.Firstname) && Lastname.Equals(other.Lastname);
             //return (Firstname == other.Firstname && Lastname == other.Lastname);
+        }
+
+        public bool Equals(string other)
+        {
+            if (Object.ReferenceEquals(other, null)) { return false; }
+            string temp="";
+            //1name mname lname\r\
+            if (Firstname != null) { temp += Firstname; }
+            if (Middlename != null) { temp += " " + Middlename; }
+            if (Lastname != null) { temp += " " + Lastname; }
+            if (Firstname!=null || Middlename!=null || Lastname!=null) { temp += @"\r\"; }
+            //nnname\r\
+            if (Nickname != null) { temp += Nickname + @"\r\"; }
+            //title\r\n
+            if (Title != null) { temp += Title + @"\r\n"; }
+            //companyname\r\n
+            if (Company != null) { temp += Company + @"\r\n"; }
+            //address\r\n
+            if (Address != null) { temp += Address + @"\r\n"; }
+            //\r\n
+            temp += @"\r\n";
+            //H: 5551\r\n
+            if (Home != null) { temp += "H: " + Home + @"\r\n"; }
+            //M: 5552\r\n
+            if (Mobile != null) { temp += "M: " + Mobile + @"\r\n"; }
+            //W: 5553\r\n
+            if (Work != null) { temp += "W: " + Work + @"\r\n"; }
+            //F: 5554\r\n\r\n
+            if (Fax != null) { temp += "F: " + Fax + @"\r\n\r\n"; }
+            //1@1.1\r\n
+            if (Email != null) { temp += Email + @"\r\n"; }
+            //2@2.2\r\n
+            if (Email2 != null) { temp += Email2 + @"\r\n"; }
+            //3@3.3\r\n
+            if (Email2 != null) { temp += Email3 + @"\r\n"; }
+            //Homepage:\r\n1.1\r\n\r\n
+            if (Homepage != null) { temp += @"Homepage:\r\n" + Homepage + @"\r\n\r\n"; }
+            //Birthday 1.January 1999(19)\r\n
+            if (Bday != null || Bmonth != null || Byear != null)
+            {
+                DateTime Bdate = new DateTime(Convert.ToInt32(Byear), Convert.ToInt32(Bmonth), Convert.ToInt32(Bday));
+                temp += "Birthday " + Bday + "." + 
+                    System.Globalization.DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(Convert.ToInt32(Bmonth))
+                    + " " + Byear + "(" + 
+                    ((DateTime.MinValue + (DateTime.Today - Bdate)).Year - 1)
+                    + @")\r\";
+            }
+            //Anniversary 2.February 2000(18)\r\n\r\n
+            if (Aday != null || Amonth != null || Ayear != null)
+            {
+                DateTime Adate = new DateTime(Convert.ToInt32(Ayear), Convert.ToInt32(Amonth), Convert.ToInt32(Aday));
+                temp += "Anniversary " + Bday + "." +
+                    System.Globalization.DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(Convert.ToInt32(Amonth))
+                    + " " + Byear + "(" +
+                    ((DateTime.MinValue + (DateTime.Today - Adate)).Year - 1)
+                    + @")\r\";
+            }
+            //address2\r\n\r\n
+            if (Address2 != null) { temp += Address2 + @"\r\n\r\n"; }
+            //P: 5555\r\n\r\n
+            if (Phone2 != null) { temp += "P: " + Phone2 + @"\r\n\r\n"; }
+            //hello
+            if (Notes != null) { temp += Notes; }
+            if (temp == other) { return true; }
+            return false;
         }
 
         public bool NotEquals(AddressData other)

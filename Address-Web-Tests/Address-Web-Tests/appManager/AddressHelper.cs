@@ -42,13 +42,11 @@ namespace WebAddressbookTests
             };
         }
 
-        public AddressData GetAddressInformationFromDetails(int index)
+        public string GetAddressInformationFromDetails(int index)
         {
             manager.Navigation.GoToHomePage();
             InitAddressDetails(index);
-            string allData = driver.FindElement(By.Id("content")).Text;
-            return new AddressData()
-            { AllData = allData };
+            return driver.FindElement(By.Id("content")).Text;
         }
 
         public AddressData GetAddressInformationFromForm(int index)
