@@ -27,9 +27,10 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddressesDetailedInformation()
         {
-            string fromDetails = applicationManager.Addresses.GetAddressInformationFromDetails(0);
-            AddressData fromFrom = applicationManager.Addresses.GetAddressInformationFromForm(0);
-            Assert.AreEqual(fromFrom, fromDetails);
+           string fromDetails = System.Text.RegularExpressions.Regex.Replace(applicationManager.Addresses.GetAddressInformationFromDetails(0), @"\\", @"\\\\");
+           AddressData fromFrom = applicationManager.Addresses.GetAddressInformationFromForm(0);
+           string temp = applicationManager.Addresses.FormatDetails(fromFrom);
+           Assert.AreEqual(temp, fromDetails);
         }
     }
 }

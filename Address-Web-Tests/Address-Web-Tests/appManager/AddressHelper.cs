@@ -42,6 +42,69 @@ namespace WebAddressbookTests
             };
         }
 
+        public string FormatDetails(AddressData a)
+        {
+            string temp = "";
+            //1name mname lname\r\
+            if (a.Firstname != null) { temp += a.Firstname; }
+            if (a.Middlename != null) { temp += " " + a.Middlename; }
+            if (a.Lastname != null) { temp += " " + a.Lastname; }
+            if (a.Firstname != null || a.Middlename != null || a.Lastname != null) { temp += @"\r\n"; }
+            //nnname\r\
+            if (a.Nickname != null) { temp += a.Nickname + @"\r\n"; }
+            //title\r\n
+            if (a.Title != null) { temp += a.Title + @"\r\n"; }
+            //companyname\r\n
+            if (a.Company != null) { temp += a.Company + @"\r\n"; }
+            //address\r\n
+            if (a.Address != null) { temp += a.Address + @"\r\n"; }
+            //\r\n
+            temp += @"\r\n";
+            //H: 5551\r\n
+            if (a.Home != null) { temp += "H: " + a.Home + @"\r\n"; }
+            //M: 5552\r\n
+            if (a.Mobile != null) { temp += "M: " + a.Mobile + @"\r\n"; }
+            //W: 5553\r\n
+            if (a.Work != null) { temp += "W: " + a.Work + @"\r\n"; }
+            //F: 5554\r\n\r\n
+            if (a.Fax != null) { temp += "F: " + a.Fax + @"\r\n\r\n"; }
+            //1@1.1\r\n
+            if (a.Email != null) { temp += a.Email + @"\r\n"; }
+            //2@2.2\r\n
+            if (a.Email2 != null) { temp += a.Email2 + @"\r\n"; }
+            //3@3.3\r\n
+            if (a.Email2 != null) { temp += a.Email3 + @"\r\n"; }
+            //Homepage:\r\n1.1\r\n\r\n
+            if (a.Homepage != null) { temp += @"Homepage:\r\n" + a.Homepage + @"\r\n\r\n"; }
+            //Birthday 1.January 1999(19)\r\n
+            if (a.Bday != null || a.Bmonth != null || a.Byear != null)
+            {
+                DateTime Bdate = DateTime.Parse(a.Byear + "." + a.Bmonth + "." + a.Bday);
+                temp += "Birthday " + a.Bday + ". " +
+                    System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Bdate.Month)
+                    + " " + a.Byear + " (" +
+                    ((DateTime.MinValue + (DateTime.Today.AddDays(-1) - Bdate)).Year - 1)
+                    + @")\r\n";
+            }
+            //Anniversary 2.February 2000(18)\r\n\r\n
+            if (a.Aday != null || a.Amonth != null || a.Ayear != null)
+            {
+                DateTime Adate = DateTime.Parse(a.Ayear+"."+a.Amonth+ "."+a.Aday);
+                temp += "Anniversary " + a.Aday + ". " +
+                    System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Adate.Month)
+                    + " " + a.Ayear + " (" +
+                    ((DateTime.MinValue + (DateTime.Today.AddDays(-1) - Adate)).Year - 1)
+                    + @")\r\n";
+            }
+            //address2\r\n\r\n
+            if (a.Address2 != null) { temp += @"\r\n" + a.Address2 + @"\r\n\r\n"; }
+            //P: 5555\r\n\r\n
+            if (a.Phone2 != null) { temp += "P: " + a.Phone2 + @"\r\n\r\n"; }
+            //hello
+            if (a.Notes != null) { temp += a.Notes; }
+            return temp;
+        }
+
         public string GetAddressInformationFromDetails(int index)
         {
             manager.Navigation.GoToHomePage();
@@ -54,28 +117,62 @@ namespace WebAddressbookTests
             manager.Navigation.GoToHomePage();
             InitAddressModification(index);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
             string home = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string work = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+            string bday = GetSelected("bday");
+            string bmonth = GetSelected("bmonth");
+            string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+            string aday = GetSelected("aday");
+            string amonth = GetSelected("amonth");
+            string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
             string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
             return new AddressData(firstname)
             {
+                Middlename = middlename,
                 Lastname = lastname,
+                Nickname = nickname,
+                Company = company,
+                Title = title,
                 Address = address,
                 Home = home,
                 Mobile = mobile,
                 Work = work,
+                Fax = fax,
                 Email = email,
                 Email2 = email2,
                 Email3 = email3,
-                Phone2 = phone2
+                Homepage = homepage,
+                Bday = bday,
+                Bmonth = bmonth,
+                Byear = byear,
+                Aday = aday,
+                Amonth = amonth,
+                Ayear = ayear,
+                Address2 = address2,
+                Phone2 = phone2,
+                Notes = notes
             };
+        }
+
+        private string GetSelected(string v)
+        {
+            SelectElement temp = new SelectElement(driver.FindElement(By.Name(v)));
+            return temp.SelectedOption.Text;
         }
 
         //Address Creation
