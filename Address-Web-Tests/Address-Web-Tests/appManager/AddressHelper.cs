@@ -46,62 +46,80 @@ namespace WebAddressbookTests
         {
             string temp = "";
             //1name mname lname\r\
-            if (a.Firstname != null) { temp += a.Firstname; }
-            if (a.Middlename != null) { temp += " " + a.Middlename; }
-            if (a.Lastname != null) { temp += " " + a.Lastname; }
-            if (a.Firstname != null || a.Middlename != null || a.Lastname != null) { temp += @"\r\n"; }
+            if (a.Firstname != "") { temp += a.Firstname; }
+            if (a.Middlename != "") { temp += " " + a.Middlename; }
+            if (a.Lastname != "") { temp += " " + a.Lastname; }
+            if (a.Firstname != "" || a.Middlename != "" || a.Lastname != "") { temp = temp.TrimStart(' ') + @"\r\n"; }
             //nnname\r\
-            if (a.Nickname != null) { temp += a.Nickname + @"\r\n"; }
+            if (a.Nickname != "") { temp += a.Nickname + @"\r\n"; }
             //title\r\n
-            if (a.Title != null) { temp += a.Title + @"\r\n"; }
+            if (a.Title != "") { temp += a.Title + @"\r\n"; }
             //companyname\r\n
-            if (a.Company != null) { temp += a.Company + @"\r\n"; }
+            if (a.Company != "") { temp += a.Company + @"\r\n"; }
             //address\r\n
-            if (a.Address != null) { temp += a.Address + @"\r\n"; }
+            if (a.Address != "") { temp += a.Address + @"\r\n"; }
             //\r\n
-            temp += @"\r\n";
+            if (a.Nickname != "" || a.Title != "" || a.Company != "" || a.Address != "") { temp += @"\r\n"; }
             //H: 5551\r\n
-            if (a.Home != null) { temp += "H: " + a.Home + @"\r\n"; }
+            if (a.Home != "") { temp += "H: " + a.Home + @"\r\n"; }
             //M: 5552\r\n
-            if (a.Mobile != null) { temp += "M: " + a.Mobile + @"\r\n"; }
+            if (a.Mobile != "") { temp += "M: " + a.Mobile + @"\r\n"; }
             //W: 5553\r\n
-            if (a.Work != null) { temp += "W: " + a.Work + @"\r\n"; }
+            if (a.Work != "") { temp += "W: " + a.Work + @"\r\n"; }
             //F: 5554\r\n\r\n
-            if (a.Fax != null) { temp += "F: " + a.Fax + @"\r\n\r\n"; }
+            if (a.Fax != "") { temp += "F: " + a.Fax + @"\r\n\r\n"; }
             //1@1.1\r\n
-            if (a.Email != null) { temp += a.Email + @"\r\n"; }
+            if (a.Email != "") { temp += a.Email + @"\r\n"; }
             //2@2.2\r\n
-            if (a.Email2 != null) { temp += a.Email2 + @"\r\n"; }
+            if (a.Email2 != "") { temp += a.Email2 + @"\r\n"; }
             //3@3.3\r\n
-            if (a.Email2 != null) { temp += a.Email3 + @"\r\n"; }
+            if (a.Email2 != "") { temp += a.Email3 + @"\r\n"; }
             //Homepage:\r\n1.1\r\n\r\n
-            if (a.Homepage != null) { temp += @"Homepage:\r\n" + a.Homepage + @"\r\n\r\n"; }
+            if (a.Homepage != "") { temp += @"Homepage:\r\n" + a.Homepage + @"\r\n"; }
             //Birthday 1.January 1999(19)\r\n
-            if (a.Bday != null || a.Bmonth != null || a.Byear != null)
+            if ((a.Bday != "" && a.Bday != "-" ) || (a.Bmonth != "" && a.Bmonth != "-") || a.Byear != "")
             {
-                DateTime Bdate = DateTime.Parse(a.Byear + "." + a.Bmonth + "." + a.Bday);
-                temp += "Birthday " + a.Bday + ". " +
-                    System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Bdate.Month)
-                    + " " + a.Byear + " (" +
-                    ((DateTime.MinValue + (DateTime.Today.AddDays(-1) - Bdate)).Year - 1)
-                    + @")\r\n";
+                temp += @"\r\n";
+                temp += "Birthday ";
+                if (a.Bday != "" && a.Bday != "-") { temp += " " + a.Bday + "."; }
+                if (a.Bmonth != "" && a.Bmonth != "-") { temp += " " + a.Bmonth; }
+                if (a.Byear != "") { temp += " " + a.Byear; }
+
+                if (a.Byear != "")
+                {
+                    temp += " (";
+                    temp += (DateTime.Today.AddYears(-Convert.ToInt32(a.Byear))).Year;
+                    temp += @")";
+                }
+               
             }
             //Anniversary 2.February 2000(18)\r\n\r\n
-            if (a.Aday != null || a.Amonth != null || a.Ayear != null)
+            if ((a.Aday != "" && a.Aday != "-") || (a.Amonth != "" && a.Amonth != "-") || a.Ayear != "")
             {
-                DateTime Adate = DateTime.Parse(a.Ayear+"."+a.Amonth+ "."+a.Aday);
-                temp += "Anniversary " + a.Aday + ". " +
-                    System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Adate.Month)
-                    + " " + a.Ayear + " (" +
-                    ((DateTime.MinValue + (DateTime.Today.AddDays(-1) - Adate)).Year - 1)
-                    + @")\r\n";
+                temp += @"\r\n";
+                temp += "Anniversary";
+                if (a.Aday != "" && a.Aday != "-") { temp += " " + a.Aday + "."; }
+                if (a.Amonth != "" && a.Amonth != "-") { temp += " " + a.Amonth; }
+                if (a.Ayear != "") { temp += " " + a.Ayear; }
+
+                if (a.Ayear != "")
+                {
+                    temp += " (";
+                    temp += (DateTime.Today.AddYears(-Convert.ToInt32(a.Ayear))).Year;
+                    temp += @")";
+                }                
             }
             //address2\r\n\r\n
-            if (a.Address2 != null) { temp += @"\r\n" + a.Address2 + @"\r\n\r\n"; }
-            //P: 5555\r\n\r\n
-            if (a.Phone2 != null) { temp += "P: " + a.Phone2 + @"\r\n\r\n"; }
-            //hello
-            if (a.Notes != null) { temp += a.Notes; }
+            if (temp != "" || a.Address2 != "" || a.Phone2 != "" || a.Notes != "")
+            {
+                temp += @"\r\n";
+                if (a.Address2 != "") { temp += a.Address2; }
+                if (a.Phone2 != "") { temp += @"\r\n\r\n"; }
+                //P: 5555\r\n\r\n
+                if (a.Phone2 != "") { temp += "P: " + a.Phone2; }
+                //hello
+                if (a.Notes != "") { temp += @"\r\n" + a.Notes; }
+            }
             return temp;
         }
 

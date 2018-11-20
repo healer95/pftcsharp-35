@@ -27,10 +27,10 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddressesDetailedInformation()
         {
-           string fromDetails = System.Text.RegularExpressions.Regex.Replace(applicationManager.Addresses.GetAddressInformationFromDetails(0), @"\\", @"\\\\");
-           AddressData fromFrom = applicationManager.Addresses.GetAddressInformationFromForm(0);
-           string temp = applicationManager.Addresses.FormatDetails(fromFrom);
-           Assert.AreEqual(temp, fromDetails);
+            string fromDetails = applicationManager.Addresses.GetAddressInformationFromDetails(0).Replace("\r\n", string.Empty);
+            AddressData fromFrom = applicationManager.Addresses.GetAddressInformationFromForm(0);
+            string temp = applicationManager.Addresses.FormatDetails(fromFrom).Replace("\\r\\n", string.Empty) ;
+            Assert.AreEqual(temp, fromDetails);
         }
     }
 }
