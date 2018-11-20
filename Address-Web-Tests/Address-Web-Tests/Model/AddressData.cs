@@ -131,7 +131,33 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return Lastname + ' ' + Firstname;
+            string temp = "";
+            if (Firstname != "") { temp += "firstname: " + Firstname; }
+            if (Middlename != "") { temp += "\nmiddlename " + Middlename; }
+            if (Lastname != "") { temp += "\nlastname " + Lastname; }
+            if (Nickname != "") { temp += "\nnickname: " + Nickname; }
+            if (Title != "") { temp += "\ntitle: " + Title; }
+            if (Company != "") { temp += "\ncompany: " + Company; }
+            if (Address != "") { temp += "\naddress: " + Address; }
+            if (Home != "") { temp += "\nhome: " + Home; }
+            if (Mobile != "") { temp += "\nmobile " + Mobile; }
+            if (Work != "") { temp += "\nwork " + Work; }
+            if (Fax != "") { temp += "\nfax " + Fax; }
+            if (Email != "") { temp += "\nemail1: " + Email; }
+            if (Email2 != "") { temp += "\nemail2: " + Email2; }
+            if (Email2 != "") { temp += "\nemail3: " + Email3; }
+            if (Homepage != "") { temp += "\nhomepage: " + Homepage; }
+            if (Bday != "" ) { temp += "\nbday: " + Bday; }
+            if (Bmonth != "") { temp += "\nbmonth: " + Bmonth; }
+            if (Byear != "") { temp += "\nbyear: " + Byear; }
+            if (Aday != "") { temp += "\nbday: " + Aday; }
+            if (Amonth != "") { temp += "\nbmonth: " + Amonth; }
+            if (Ayear != "") { temp += "\nbyear: " + Ayear; }
+            if (Address2 != "") { temp += "\naddress2: " + Address2; }
+            if (Phone2 != "") { temp += "\nphone2 " + Phone2; }
+            if (Notes != "") { temp += "\nnotes: " + Notes; }
+            
+            return temp;
         }
     }
 }
