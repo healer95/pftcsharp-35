@@ -20,12 +20,11 @@ namespace WebAddressbookTests
 
         public static string GenerateRandomString(int v)
         {
-            
-            int l = Convert.ToInt32(random.NextDouble() * v);
+            int l = random.Next(1, v);
             StringBuilder builder = new StringBuilder();
             for (int i=0; i<l; i++)
             {
-                builder.Append(Convert.ToChar(32 + Convert.ToInt32(random.NextDouble() * 223)));
+                builder.Append(Encoding.ASCII.GetString(new byte[] { (Convert.ToByte(random.Next(33, 175))) }));
             }
             return builder.ToString();
         }
