@@ -27,7 +27,7 @@ namespace WebAddressbookTests
                 int temp = random.Next(33, 175);
                 if (temp == 39) { temp++; } //' isn't parsable
                 if (temp == 60) { temp++; } //< isn't parsable
-
+                if (temp == 92) { temp++; } //\ isn't parsable
                 builder.Append(Encoding.ASCII.GetString(new byte[] { (Convert.ToByte(temp)) }));
             }
             return builder.ToString();

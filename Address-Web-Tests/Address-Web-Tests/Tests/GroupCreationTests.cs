@@ -7,6 +7,7 @@ using System.Linq;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -51,7 +52,12 @@ namespace WebAddressbookTests
                 .Deserialize(new StreamReader(@"groups.xml"));
         }
 
-        [Test, TestCaseSource("GroupDataFromXmlFile")]
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData groupData)
         {
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();

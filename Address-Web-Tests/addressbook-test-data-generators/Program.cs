@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using WebAddressbookTests;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace qwerty
 {
@@ -18,8 +20,8 @@ namespace qwerty
             {
                 args = new string[3];
                 args[0] = "2";
-                args[1] = @"C:\Users\healer-PC\Source\Repos\pftcsharp-35\Address-Web-Tests\Address-Web-Tests\groups.xml";
-                args[2] = "xml";
+                args[1] = @"C:\Users\healer-PC\Source\Repos\pftcsharp-35\Address-Web-Tests\Address-Web-Tests\groups.json";
+                args[2] = "json";
                 Console.WriteLine("Defaults used: 2 groups.xml");
             }
             int count = Convert.ToInt32(args[0]);
@@ -42,6 +44,7 @@ namespace qwerty
                 fileStream.Close();
             }
             else if (format == "xml") { WriteGroupsToXml(groups, writer); }
+            else if (format == "json") { WriteGroupsToJson(groups, writer); }
             else { Console.Out.Write("Unsupported format " + format); }
 
             writer.Close();
@@ -62,6 +65,11 @@ namespace qwerty
         static void WriteGroupsToXml(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
+        }
+
+        static void WriteGroupsToJson(List<GroupData> groups, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));
         }
     }
 }
