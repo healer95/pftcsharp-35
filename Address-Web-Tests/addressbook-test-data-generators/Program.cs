@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using WebAddressbookTests;
 using Formatting = Newtonsoft.Json.Formatting;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace qwerty
 {
@@ -20,14 +21,14 @@ namespace qwerty
             {
                 args = new string[3];
                 args[0] = "2";
-                args[1] = @"C:\Users\healer-PC\Source\Repos\pftcsharp-35\Address-Web-Tests\Address-Web-Tests\groups.json";
-                args[2] = "json";
+                args[1] = @"C:\Users\healer-PC\Source\Repos\pftcsharp-35\Address-Web-Tests\Address-Web-Tests\groups.xls";
+                args[2] = "xls";
                 Console.WriteLine("Defaults used: 2 groups.xml");
             }
             int count = Convert.ToInt32(args[0]);
-            StreamWriter writer = new StreamWriter(args[1]);
-            List<GroupData> groups = new List<GroupData>();
+            string file = Path.Combine(Directory.GetCurrentDirectory(), args[1]);
             string format = args[2];
+            List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < count; i++)
             {
                 groups.Add(new GroupData(TestBase.GenerateRandomString(5))
@@ -36,18 +37,28 @@ namespace qwerty
                     Footer = TestBase.GenerateRandomString(10)
                 });
             }
-            if (format == "csv") {
-                WriteGroupsToCsv(groups, writer);
-                //delete last \n
-                FileStream fileStream = new FileStream(args[1], FileMode.Open, FileAccess.ReadWrite);
-                fileStream.SetLength(fileStream.Length - 2);
-                fileStream.Close();
+            if (format == "xls")
+            {
+                WriteGroupsToXls(groups, file);
             }
-            else if (format == "xml") { WriteGroupsToXml(groups, writer); }
-            else if (format == "json") { WriteGroupsToJson(groups, writer); }
-            else { Console.Out.Write("Unsupported format " + format); }
+            else
+            {
+                StreamWriter writer = new StreamWriter(file);
 
-            writer.Close();
+                if (format == "csv")
+                {
+                    WriteGroupsToCsv(groups, writer);
+                    //delete last \n
+                    FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.ReadWrite);
+                    fileStream.SetLength(fileStream.Length - 2);
+                    fileStream.Close();
+                }
+                else if (format == "xml") { WriteGroupsToXml(groups, writer); }
+                else if (format == "json") { WriteGroupsToJson(groups, writer); }
+                else { Console.Out.Write("Unsupported format " + format); }
+
+                writer.Close();
+            }
             Console.Read();
         }
 
@@ -70,6 +81,26 @@ namespace qwerty
         static void WriteGroupsToJson(List<GroupData> groups, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));
+        }
+
+        static void WriteGroupsToXls(List<GroupData> groups, string file)
+        {
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook wb = app.Workbooks.Add();
+            Excel.Worksheet sheet = wb.ActiveSheet;
+
+            int row = 1;
+            foreach (GroupData group in groups)
+            {
+                sheet.Cells[row, 1] = group.Name;
+                sheet.Cells[row, 2] = group.Header;
+                sheet.Cells[row, 3] = group.Footer;
+                row++;
+            }
+
+            File.Delete(file);
+            wb.SaveAs(file);
+            app.Quit();
         }
     }
 }
