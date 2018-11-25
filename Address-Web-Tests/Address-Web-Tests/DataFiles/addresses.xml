@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAddressData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AddressData>
+    <Firstname>?</Firstname>
+    <Lastname>?qf</Lastname>
+    <Middlename>*0?6</Middlename>
+    <Nickname>%?&amp;?</Nickname>
+    <Title>P?ayV</Title>
+    <Company>h??t</Company>
+    <Address>?J&gt;#</Address>
+    <Home>o}qVDp</Home>
+    <Mobile>#?hk??Z?</Mobile>
+    <Work>F?]Z/|</Work>
+    <Fax>Tyxfl</Fax>
+    <Email>^bTd?d;</Email>
+    <Email2>s-???</Email2>
+    <Email3>%???@??</Email3>
+    <Homepage>N?wj?</Homepage>
+    <Bday>11</Bday>
+    <Bmonth>March</Bmonth>
+    <Byear>1444</Byear>
+    <Aday>24</Aday>
+    <Amonth>November</Amonth>
+    <Ayear>2297</Ayear>
+    <Address2>=?</Address2>
+    <Phone2>+HJd&amp;8</Phone2>
+    <Notes>(?f3</Notes>
+    <AllPhones>o}qVDp
+?hk??Z?
+F?]Z/|
++HJd8</AllPhones>
+    <AllEmails>^bTd?d;
+s-???
+???@??</AllEmails>
+  </AddressData>
+  <AddressData>
+    <Firstname>?ej</Firstname>
+    <Lastname>?G???5</Lastname>
+    <Middlename>?cp</Middlename>
+    <Nickname>?&gt;q&amp;H?</Nickname>
+    <Title>{xJ&gt;??</Title>
+    <Company>?wt=?</Company>
+    <Address>J.J?</Address>
+    <Home>|0??`Wq</Home>
+    <Mobile>se?Ta??^x</Mobile>
+    <Work>|?d?"O?y@</Work>
+    <Fax>?</Fax>
+    <Email>??z</Email>
+    <Email2>{??*</Email2>
+    <Email3>=z</Email3>
+    <Homepage>*</Homepage>
+    <Bday>14</Bday>
+    <Bmonth>May</Bmonth>
+    <Byear>2046</Byear>
+    <Aday>20</Aday>
+    <Amonth>October</Amonth>
+    <Ayear>1049</Ayear>
+    <Address2>??</Address2>
+    <Phone2>????;}9</Phone2>
+    <Notes>?.</Notes>
+    <AllPhones>|0??`Wq
+se?Ta??^x
+|?d?O?y@
+????;}9</AllPhones>
+    <AllEmails>??z
+{??*
+=z</AllEmails>
+  </AddressData>
+</ArrayOfAddressData>

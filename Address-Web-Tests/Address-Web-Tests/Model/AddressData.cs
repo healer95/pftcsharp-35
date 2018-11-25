@@ -21,6 +21,7 @@ namespace WebAddressbookTests
         //    address2, phone2, notes;
         private string allPhones, allEmails, allData;
 
+        public AddressData() { }
         public AddressData(string firstname)
         {
             Firstname = firstname;
@@ -71,7 +72,7 @@ namespace WebAddressbookTests
         public string Address2 {get; set;}
         public string Phone2 {get; set;}
         public string Notes {get; set;}
-        public string AllPhones
+        internal string AllPhones
         {
             get
             {
@@ -83,7 +84,7 @@ namespace WebAddressbookTests
                 allPhones = value;
             }
         }
-        public string AllEmails
+        internal string AllEmails
         {
             get
             {
