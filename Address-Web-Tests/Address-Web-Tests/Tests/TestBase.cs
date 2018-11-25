@@ -24,7 +24,11 @@ namespace WebAddressbookTests
             StringBuilder builder = new StringBuilder();
             for (int i=0; i<l; i++)
             {
-                builder.Append(Encoding.ASCII.GetString(new byte[] { (Convert.ToByte(random.Next(33, 175))) }));
+                int temp = random.Next(33, 175);
+                if (temp == 39) { temp++; } //' isn't parsable
+                if (temp == 60) { temp++; } //< isn't parsable
+
+                builder.Append(Encoding.ASCII.GetString(new byte[] { (Convert.ToByte(temp)) }));
             }
             return builder.ToString();
         }
