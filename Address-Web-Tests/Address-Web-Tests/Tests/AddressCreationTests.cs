@@ -52,7 +52,7 @@ namespace WebAddressbookTests
         public static IEnumerable<AddressData> AddressDataFromCsvFile()
         {
             List<AddressData> groups = new List<AddressData>();
-            string[] lines = File.ReadAllLines(@"DataFiles\addresses.csv");
+            string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + @"DataFiles\addresses.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split('\t');
@@ -90,12 +90,12 @@ namespace WebAddressbookTests
         {
             return (List<AddressData>)
                 new XmlSerializer(typeof(List<AddressData>))
-                .Deserialize(new StreamReader(@"DataFiles\addresses.xml"));
+                .Deserialize(new StreamReader(Directory.GetCurrentDirectory() + @"DataFiles\addresses.xml"));
         }
 
         public static IEnumerable<AddressData> AddressDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<AddressData>>(File.ReadAllText(@"DataFiles\addresses.json"));
+            return JsonConvert.DeserializeObject<List<AddressData>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"DataFiles\addresses.json"));
         }
 
         public static IEnumerable<AddressData> AddressDataFromXlsFile()

@@ -34,7 +34,7 @@ namespace WebAddressbookTests
         public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            string[] lines = File.ReadAllLines(@"DataFiles\groups.csv");
+            string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + @"DataFiles\groups.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split('\t');
@@ -51,12 +51,12 @@ namespace WebAddressbookTests
         {
             return (List<GroupData>) 
                 new XmlSerializer(typeof(List<GroupData>))
-                .Deserialize(new StreamReader(@"DataFiles\groups.xml"));
+                .Deserialize(new StreamReader(Directory.GetCurrentDirectory() + @"DataFiles\groups.xml"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"DataFiles\groups.json"));
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"DataFiles\groups.json"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromXlsFile()

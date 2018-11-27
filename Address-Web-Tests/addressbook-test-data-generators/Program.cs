@@ -21,12 +21,13 @@ namespace qwerty
         {
             if (args.Length == 0)
             {
+                var dir = TryGetSolutionDirectoryInfo();
                 args = new string[4];
                 args[0] = "2";
                 args[1] = "2";
                 args[3] = "json";
-                if (args[0] == "1" || args[0] == "groups") { args[2] = @"C:\Users\healer-PC\Source\Repos\pftcsharp-35\Address-Web-Tests\Address-Web-Tests\groups." + args[3]; }
-                else { args[2] = @"C:\Users\healer-PC\Source\Repos\pftcsharp-35\Address-Web-Tests\Address-Web-Tests\addresses." + args[3]; }
+                if (args[0] == "1" || args[0] == "groups") { args[2] = dir.FullName + @"\groups." + args[3]; }
+                else { args[2] = dir.FullName + @"\addresses." + args[3]; }
                 
                 Console.WriteLine(@"Defaults used: create 2 instances in 'addresses.json'");
             }
@@ -178,6 +179,17 @@ namespace qwerty
                     address.Notes
                     ));
             }
+        }
+
+        public static DirectoryInfo TryGetSolutionDirectoryInfo(string currentPath = null)
+        {
+            var directory = new DirectoryInfo(
+                currentPath ?? Directory.GetCurrentDirectory());
+            while (directory != null && !directory.GetFiles("*.sln").Any())
+            {
+                directory = directory.Parent;
+            }
+            return directory;
         }
 
         static void WriteToXml(List<GroupData> groups, StreamWriter writer)
