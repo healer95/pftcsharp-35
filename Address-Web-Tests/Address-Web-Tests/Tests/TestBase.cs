@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     {
         protected ApplicationManager applicationManager;
         public static Random random = new Random();
+        public static bool PERFORM_LONG_UI_CHECKS = true;
 
         [SetUp]
         public void SetupApplicationManager() 

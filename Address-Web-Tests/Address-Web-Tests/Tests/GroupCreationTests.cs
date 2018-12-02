@@ -15,7 +15,7 @@ using Microsoft.CSharp;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -34,7 +34,7 @@ namespace WebAddressbookTests
         public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + @"DataFiles\groups.csv");
+            string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\DataFiles\groups.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split('\t');
@@ -51,19 +51,19 @@ namespace WebAddressbookTests
         {
             return (List<GroupData>) 
                 new XmlSerializer(typeof(List<GroupData>))
-                .Deserialize(new StreamReader(Directory.GetCurrentDirectory() + @"DataFiles\groups.xml"));
+                .Deserialize(new StreamReader(Directory.GetCurrentDirectory() + @"\DataFiles\groups.xml"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"DataFiles\groups.json"));
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\DataFiles\groups.json"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromXlsFile()
         {
             List<GroupData> groups = new List<GroupData>();
             Excel.Application app = new Excel.Application();
-            Excel.Workbook wb = app.Workbooks.Open(Directory.GetCurrentDirectory() + @"DataFiles\groups.xls");
+            Excel.Workbook wb = app.Workbooks.Open(Directory.GetCurrentDirectory() + @"\DataFiles\groups.xls");
             Excel.Worksheet sheet = wb.ActiveSheet;
             Excel.Range range = sheet.UsedRange;
             for (int i = 1; i <= range.Rows.Count; i++)
@@ -82,16 +82,16 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData groupData)
         {
-            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             
             applicationManager.Groups.Create(groupData);
 
             Assert.AreEqual(oldGroups.Count + 1, applicationManager.Groups.GetGroupCount());
-            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
-            oldGroups.Add(groupData);
-            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
-            newGroups = newGroups.OrderBy(x => x.Name).ToList();
-            Assert.AreEqual(oldGroups, newGroups);
+            //List<GroupData> newGroups = GroupData.GetAll();
+            //oldGroups.Add(groupData);
+            //oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
+            //newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            //Assert.AreEqual(oldGroups, newGroups);
         }
 
         //kill
@@ -103,16 +103,16 @@ namespace WebAddressbookTests
                 Header = "",
                 Footer = ""
             };
-            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             applicationManager.Groups.Create(groupData);
 
             Assert.AreEqual(oldGroups.Count + 1, applicationManager.Groups.GetGroupCount());
-            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
-            oldGroups.Add(groupData);
-            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
-            newGroups = newGroups.OrderBy(x => x.Name).ToList();
-            Assert.AreEqual(oldGroups, newGroups);
+            //List<GroupData> newGroups = GroupData.GetAll();
+            //oldGroups.Add(groupData);
+            //oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
+            //newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            //Assert.AreEqual(oldGroups, newGroups);
         }
 
         //kill
@@ -124,16 +124,30 @@ namespace WebAddressbookTests
                 Header = "",
                 Footer = ""
             };
-            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             applicationManager.Groups.Create(groupData);
 
             Assert.AreEqual(oldGroups.Count + 1, applicationManager.Groups.GetGroupCount());
-            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
-            oldGroups.Add(groupData);
-            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
-            newGroups = newGroups.OrderBy(x => x.Name).ToList();
-            Assert.AreEqual(oldGroups, newGroups);
+            //List<GroupData> newGroups = GroupData.GetAll();
+            //oldGroups.Add(groupData);
+            //oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
+            //newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            //Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestGroupsDBConectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = applicationManager.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            Console.Out.Write(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAll();
+            end = DateTime.Now;
+            Console.Out.Write(end.Subtract(start));
         }
     }
 }

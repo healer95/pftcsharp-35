@@ -52,7 +52,7 @@ namespace WebAddressbookTests
         public static IEnumerable<AddressData> AddressDataFromCsvFile()
         {
             List<AddressData> groups = new List<AddressData>();
-            string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + @"DataFiles\addresses.csv");
+            string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\DataFiles\addresses.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split('\t');
@@ -90,19 +90,19 @@ namespace WebAddressbookTests
         {
             return (List<AddressData>)
                 new XmlSerializer(typeof(List<AddressData>))
-                .Deserialize(new StreamReader(Directory.GetCurrentDirectory() + @"DataFiles\addresses.xml"));
+                .Deserialize(new StreamReader(Directory.GetCurrentDirectory() + @"\DataFiles\addresses.xml"));
         }
 
         public static IEnumerable<AddressData> AddressDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<AddressData>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"DataFiles\addresses.json"));
+            return JsonConvert.DeserializeObject<List<AddressData>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\DataFiles\addresses.json"));
         }
 
         public static IEnumerable<AddressData> AddressDataFromXlsFile()
         {
             List<AddressData> groups = new List<AddressData>();
             Excel.Application app = new Excel.Application();
-            Excel.Workbook wb = app.Workbooks.Open(Directory.GetCurrentDirectory() + @"DataFiles\addresses.xls");
+            Excel.Workbook wb = app.Workbooks.Open(Directory.GetCurrentDirectory() + @"\DataFiles\addresses.xls");
             Excel.Worksheet sheet = wb.ActiveSheet;
             Excel.Range range = sheet.UsedRange;
             for (int i = 1; i <= range.Rows.Count; i++)
@@ -188,6 +188,20 @@ namespace WebAddressbookTests
             newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
             Assert.AreEqual(oldAddresses, newAddresses);
             applicationManager.Navigation.GoToHomePage();
+        }
+
+        [Test]
+        public void TestAdderessesDBConectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<AddressData> fromUI = applicationManager.Addresses.GetAddressList();
+            DateTime end = DateTime.Now;
+            Console.Out.Write(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<AddressData> fromDB = AddressData.GetAll();
+            end = DateTime.Now;
+            Console.Out.Write(end.Subtract(start));
         }
     }
 }
