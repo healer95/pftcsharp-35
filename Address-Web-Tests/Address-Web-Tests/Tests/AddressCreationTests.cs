@@ -142,13 +142,11 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("AddressDataFromJsonFile")]
         public void AddressCreationTest(AddressData addressData)
         {
-            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
+            List<AddressData> oldAddresses = AddressData.GetAll();
 
             applicationManager.Addresses.Create(addressData);
-            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
+            List<AddressData> newAddresses = AddressData.GetAll();
             oldAddresses.Add(addressData);
-            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
             Assert.AreEqual(oldAddresses, newAddresses);
             applicationManager.Navigation.GoToHomePage();
         }
@@ -163,14 +161,10 @@ namespace WebAddressbookTests
                 Nickname = "1nname",
                 Notes = "hello"
             };
-            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
+            List<AddressData> oldAddresses = AddressData.GetAll();
 
             applicationManager.Addresses.Create(addressData);
-            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
-            oldAddresses.Add(addressData);
-            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            Assert.AreEqual(oldAddresses, newAddresses);
+            Assert.AreEqual(oldAddresses.Count + 1, applicationManager.Addresses.GetAddressesCount());
             applicationManager.Navigation.GoToHomePage();
         }
 
@@ -179,14 +173,10 @@ namespace WebAddressbookTests
         public void EmptyAddressCreationTest()
         {
             AddressData addressData = new AddressData("") {};
-            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
+            List<AddressData> oldAddresses = AddressData.GetAll();
 
             applicationManager.Addresses.Create(addressData);
-            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
-            oldAddresses.Add(addressData);
-            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            Assert.AreEqual(oldAddresses, newAddresses);
+            Assert.AreEqual(oldAddresses.Count + 1,applicationManager.Addresses.GetAddressesCount());
             applicationManager.Navigation.GoToHomePage();
         }
 

@@ -102,7 +102,7 @@ namespace WebAddressbookTests
             {
                 Header = "",
                 Footer = ""
-            };
+            }; 
             List<GroupData> oldGroups = GroupData.GetAll();
 
             applicationManager.Groups.Create(groupData);
@@ -148,6 +148,14 @@ namespace WebAddressbookTests
             List<GroupData> fromDB = GroupData.GetAll();
             end = DateTime.Now;
             Console.Out.Write(end.Subtract(start));
+        }
+        [Test]
+        public void TestGARDBConectivity()
+        {
+            foreach (AddressData v in GroupData.GetAll()[0].GetAddresses())
+            {
+                Console.Out.WriteLine(v);
+            }
         }
     }
 }

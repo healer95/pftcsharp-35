@@ -21,14 +21,6 @@ namespace WebAddressbookTests
             applicationManager.Groups.Remove(toBeRemoved);
 
             Assert.AreEqual(oldGroups.Count - 1, applicationManager.Groups.GetGroupCount());
-            //List<GroupData> newGroups = GroupData.GetAll();
-            ////oldGroups.RemoveAt(0);
-            ////oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
-            ////newGroups = newGroups.OrderBy(x => x.Name).ToList();
-            ////Assert.AreEqual(oldGroups, newGroups);
-
-            //foreach (GroupData group in newGroups)
-            //{ Assert.AreNotEqual(group.ID, toBeRemoved.ID); }
         }
     }
 }

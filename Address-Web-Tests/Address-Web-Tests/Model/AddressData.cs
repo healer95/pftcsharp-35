@@ -99,7 +99,7 @@ namespace WebAddressbookTests
         [Column(Name = "notes"), NotNull]
         public string Notes {get; set;}
         [Column(Name = "id"), PrimaryKey, Identity]
-        internal string ID { get; set; }
+        public string ID { get; set; }
         internal string AllPhones
         {
             get

@@ -61,5 +61,14 @@ namespace WebAddressbookTests
                 return (from g in db.Groups select g).ToList();
             }
         }
+
+        public List<AddressData> GetAddresses()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from a in db.Addresses
+                        from gar in db.GAR.Where(p => p.GroupID == ID && p.AddresssID == a.ID) select a).Distinct().ToList();
+            }
+        }
     }
 }

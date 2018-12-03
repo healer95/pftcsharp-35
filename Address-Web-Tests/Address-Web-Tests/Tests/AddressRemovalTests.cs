@@ -16,14 +16,11 @@ namespace WebAddressbookTests
         {
             applicationManager.Navigation.GoToHomePage();
             applicationManager.Addresses.CheckHasAddress();
-            List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
+            List<AddressData> oldAddresses = AddressData.GetAll();
+            AddressData toBeRemoved = oldAddresses[0];
+            applicationManager.Addresses.Remove(toBeRemoved);
 
-            applicationManager.Addresses.Remove(0);
-            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
-            oldAddresses.RemoveAt(0);
-            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            Assert.AreEqual(oldAddresses, newAddresses);
+            Assert.AreEqual(oldAddresses.Count - 1, applicationManager.Addresses.GetAddressesCount());
             applicationManager.Navigation.GoToHomePage();
         }
     }

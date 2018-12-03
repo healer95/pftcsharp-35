@@ -187,6 +187,11 @@ namespace WebAddressbookTests
             };
         }
 
+        internal int GetAddressesCount()
+        {
+            return driver.FindElements(By.CssSelector("tr")).Count;
+        }
+
         private string GetSelected(string v)
         {
             SelectElement temp = new SelectElement(driver.FindElement(By.Name(v)));
@@ -243,6 +248,14 @@ namespace WebAddressbookTests
             manager.Navigation.GoToHomePage();
             return this;
         }
+        public AddressHelper Remove(AddressData v)
+        {
+            if (!IsOnHomePage()) { manager.Navigation.GoToHomePage(); }
+            SelectAddress(v.ID);
+            RemoveAddress();
+            manager.Navigation.GoToHomePage();
+            return this;
+        }
 
         internal List<AddressData> GetAddressList()
         {
@@ -273,7 +286,12 @@ namespace WebAddressbookTests
             // несмотря на то что код одинаковый с группами, 
             // пусть будет отдельный метод,
             // т.к. не факт что всегда и везде будет одинаково
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+        public AddressHelper SelectAddress(string ID)
+        {
+            driver.FindElement(By.XPath(String.Format("(//input[@name='selected[]' and @value='{0}'])", ID))).Click();
             return this;
         }
 
