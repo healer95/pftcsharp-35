@@ -52,7 +52,7 @@ namespace WebAddressbookTests
         [Column(Name = "group_footer"), NotNull]
         public string Footer { get; set; }
         [Column(Name = "group_id"), PrimaryKey, Identity]
-        internal string ID { get; set; }
+        public string ID { get; set; }
 
         public static List<GroupData> GetAll()
         {
