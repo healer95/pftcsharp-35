@@ -9,7 +9,7 @@ using System.Linq;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddressRemovalTests : AuthTestBase
+    public class AddressRemovalTests : AddressesTestBase
     {
         [Test]
         public void AddressRemovalTest()

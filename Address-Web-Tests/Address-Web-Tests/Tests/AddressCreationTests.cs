@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddressCreationTests : AuthTestBase
+    public class AddressCreationTests : AddressesTestBase
     {
         public static IEnumerable<AddressData> RandomGroupDataProvider()
         {
@@ -145,9 +145,9 @@ namespace WebAddressbookTests
             List<AddressData> oldAddresses = AddressData.GetAll();
 
             applicationManager.Addresses.Create(addressData);
-            List<AddressData> newAddresses = AddressData.GetAll();
+            
             oldAddresses.Add(addressData);
-            Assert.AreEqual(oldAddresses, newAddresses);
+            Assert.AreEqual(oldAddresses.Count + 1, applicationManager.Addresses.GetAddressesCount());
             applicationManager.Navigation.GoToHomePage();
         }
         //to kill

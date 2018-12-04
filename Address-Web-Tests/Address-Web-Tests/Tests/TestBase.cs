@@ -29,6 +29,7 @@ namespace WebAddressbookTests
                 if (temp == 39) { temp++; } //' isn't parsable
                 if (temp == 60) { temp++; } //< isn't parsable
                 if (temp == 92) { temp++; } //\ isn't parsable
+                if (temp == 85) { temp++; } //NUL badly parsable
                 builder.Append(Encoding.ASCII.GetString(new byte[] { (Convert.ToByte(temp)) }));
             }
             return builder.ToString();

@@ -189,7 +189,7 @@ namespace WebAddressbookTests
 
         internal int GetAddressesCount()
         {
-            return driver.FindElements(By.CssSelector("tr")).Count;
+            return driver.FindElements(By.CssSelector("tr[name=entry]")).Count;
         }
 
         private string GetSelected(string v)
@@ -263,7 +263,7 @@ namespace WebAddressbookTests
             {
                 addressCache = new List<AddressData>();
                 manager.Navigation.GoToHomePage();
-                ICollection<IWebElement> rows = driver.FindElements(By.CssSelector("tr[name=entry"));
+                ICollection<IWebElement> rows = driver.FindElements(By.CssSelector("tr[name=entry]"));
                 foreach (IWebElement row in rows)
                 {
                     var cells = row.FindElements(By.CssSelector("td"));
@@ -291,7 +291,8 @@ namespace WebAddressbookTests
         }
         public AddressHelper SelectAddress(string ID)
         {
-            driver.FindElement(By.XPath(String.Format("(//input[@name='selected[]' and @value='{0}'])", ID))).Click();
+            driver.FindElement(By.XPath(String.Format("(//input[@name='selected[]' and //tr['{0}']/td/input])", ID))).Click();
+            //tr[5]/td/input '{0}'
             return this;
         }
 

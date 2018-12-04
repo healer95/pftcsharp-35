@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddressModificationTests : AuthTestBase
+    public class AddressModificationTests : AddressesTestBase
     {
         [Test]
         public void AddressModificationTest()
@@ -46,10 +46,7 @@ namespace WebAddressbookTests
             applicationManager.Addresses.Modyfy(0, newData);
             applicationManager.Navigation.GoToHomePage();
 
-            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
-            oldAddresses = oldAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            newAddresses = newAddresses.OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ToList();
-            Assert.AreNotEqual(oldAddresses, newAddresses);
+            Assert.AreNotEqual(oldAddresses.Count, applicationManager.Addresses.GetAddressesCount());
         }
     }
 }

@@ -52,9 +52,9 @@ namespace WebAddressbookTests
         //Declairing get/set
         [Column(Name = "firstname"), NotNull]
         public string Firstname { get; set; }
-        [Column(Name = "middlename"), NotNull]
-        public string Lastname { get; set; }
         [Column(Name = "lastname"), NotNull]
+        public string Lastname { get; set; }
+        [Column(Name = "middlename"), NotNull]
         public string Middlename {get; set;}
         [Column(Name = "nickname"), NotNull]
         public string Nickname {get; set;}

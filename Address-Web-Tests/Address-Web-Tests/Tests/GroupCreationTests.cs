@@ -128,7 +128,7 @@ namespace WebAddressbookTests
 
             applicationManager.Groups.Create(groupData);
 
-            Assert.AreEqual(oldGroups.Count + 1, applicationManager.Groups.GetGroupCount());
+            Assert.AreEqual(oldGroups.Count, applicationManager.Groups.GetGroupCount());
             //List<GroupData> newGroups = GroupData.GetAll();
             //oldGroups.Add(groupData);
             //oldGroups = oldGroups.OrderBy(x => x.Name).ToList();

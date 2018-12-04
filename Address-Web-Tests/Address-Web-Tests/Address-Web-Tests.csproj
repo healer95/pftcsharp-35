@@ -88,6 +88,7 @@
     <Compile Include="appManager\ApplicationManager.cs" />
     <Compile Include="Model\GroupData.cs" />
     <Compile Include="appManager\GroupHelper.cs" />
+    <Compile Include="Tests\AddressesTestBase.cs" />
     <Compile Include="Tests\AddressModificationTests.cs" />
     <Compile Include="Tests\AddressSearchTests.cs" />
     <Compile Include="Tests\AuthTestBase.cs" />
