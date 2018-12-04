@@ -183,15 +183,15 @@ namespace WebAddressbookTests
         [Test]
         public void TestAdderessesDBConectivity()
         {
-            DateTime start = DateTime.Now;
-            List<AddressData> fromUI = applicationManager.Addresses.GetAddressList();
-            DateTime end = DateTime.Now;
-            Console.Out.Write(end.Subtract(start));
+            //DateTime start = DateTime.Now;
+            //List<AddressData> fromUI = applicationManager.Addresses.GetAddressList();
+            //DateTime end = DateTime.Now;
+            //Console.Out.Write(end.Subtract(start));
 
-            start = DateTime.Now;
-            List<AddressData> fromDB = AddressData.GetAll();
-            end = DateTime.Now;
-            Console.Out.Write(end.Subtract(start));
+            //start = DateTime.Now;
+            //List<AddressData> fromDB = AddressData.GetAll();
+            //end = DateTime.Now;
+            //Console.Out.Write(end.Subtract(start));
         }
     }
 }

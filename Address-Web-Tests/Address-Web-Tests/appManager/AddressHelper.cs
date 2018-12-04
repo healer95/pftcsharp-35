@@ -23,6 +23,52 @@ namespace WebAddressbookTests
             return Int32.Parse(m.Value);
         }
 
+        internal void RemoveAddressFromGroup(AddressData address, GroupData group)
+        {
+            manager.Navigation.GoToHomePage();
+            SelectGroupFilter(group.Name);
+            SelectAddress(address.ID);            
+            CommitRemovingAddressFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void CommitRemovingAddressFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        private void SelectGroupFilter(string group)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(group);
+        }
+
+        internal void AddAddressToGroup(AddressData address, GroupData group)
+        {
+            manager.Navigation.GoToHomePage();
+            ClearGroupFilter();
+            SelectAddress(address.ID);
+            SelectGroupToAdd(group.Name);
+            CommitAddingAddressToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void CommitAddingAddressToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
         public AddressData GetAddressInformationFromTable(int index)
         {
             manager.Navigation.GoToHomePage();
@@ -189,6 +235,7 @@ namespace WebAddressbookTests
 
         internal int GetAddressesCount()
         {
+            if (!IsOnHomePage()) { manager.Navigation.GoToHomePage(); }
             return driver.FindElements(By.CssSelector("tr[name=entry]")).Count;
         }
 
@@ -237,6 +284,8 @@ namespace WebAddressbookTests
             InitAddressCreation();
             FillAddressData(addressData);
             SubmitAddressCreation();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
             return this;
         }
 
@@ -253,7 +302,8 @@ namespace WebAddressbookTests
             if (!IsOnHomePage()) { manager.Navigation.GoToHomePage(); }
             SelectAddress(v.ID);
             RemoveAddress();
-            manager.Navigation.GoToHomePage();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
             return this;
         }
 
@@ -268,6 +318,7 @@ namespace WebAddressbookTests
                 {
                     var cells = row.FindElements(By.CssSelector("td"));
                     addressCache.Add(new AddressData(cells[2].Text, cells[1].Text));
+                    addressCache.Last().ID = cells[0].FindElement(By.TagName("input")).GetAttribute("id");
                 }
             }
             return addressCache;
@@ -285,13 +336,13 @@ namespace WebAddressbookTests
         {
             // несмотря на то что код одинаковый с группами, 
             // пусть будет отдельный метод,
-            // т.к. не факт что всегда и везде будет одинаково
+            // т.к. не факт что всегда и везде будет одинакого
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
         public AddressHelper SelectAddress(string ID)
         {
-            driver.FindElement(By.XPath(String.Format("(//input[@name='selected[]' and //tr['{0}']/td/input])", ID))).Click();
+            driver.FindElement(By.Id(ID)).Click();
             //tr[5]/td/input '{0}'
             return this;
         }
@@ -305,6 +356,8 @@ namespace WebAddressbookTests
             FillAddressData(newData);
             if (a == newData.Lastname) { driver.FindElement(By.Name("middlename")).SendKeys("1"+a); }
             SubmitAddressModification();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
             return this;
         }
 

@@ -39,14 +39,23 @@ namespace WebAddressbookTests
                 Phone2 = "new5555",
                 Notes = "newhello"
             };
+
             applicationManager.Navigation.GoToHomePage();
             applicationManager.Addresses.CheckHasAddress();
 
             List<AddressData> oldAddresses = applicationManager.Addresses.GetAddressList();
+            AddressData oldData = oldAddresses[0];
             applicationManager.Addresses.Modyfy(0, newData);
-            applicationManager.Navigation.GoToHomePage();
 
-            Assert.AreNotEqual(oldAddresses.Count, applicationManager.Addresses.GetAddressesCount());
+            Assert.AreEqual(oldAddresses.Count, applicationManager.Addresses.GetAddressesCount());
+
+            List<AddressData> newAddresses = applicationManager.Addresses.GetAddressList();
+            oldAddresses[0].Firstname = newData.Firstname;
+            oldAddresses = oldAddresses.OrderBy(x => x.ID).ToList();
+            newAddresses = newAddresses.OrderBy(x => x.ID).ToList();
+
+            foreach (AddressData group in newAddresses)
+            { if (group.ID == oldData.ID) { Assert.AreEqual(newData.Firstname, group.Firstname); } }
         }
     }
 }

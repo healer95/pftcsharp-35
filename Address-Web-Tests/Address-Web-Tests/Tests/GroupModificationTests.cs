@@ -27,8 +27,8 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldGroups.Count, applicationManager.Groups.GetGroupCount());
             List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
             oldGroups[0].Name = newData.Name;
-            oldGroups = oldGroups.OrderBy(x => x.Name).ToList();
-            newGroups = newGroups.OrderBy(x => x.Name).ToList();
+            oldGroups = oldGroups.OrderBy(x => x.ID).ToList();
+            newGroups = newGroups.OrderBy(x => x.ID).ToList();
             Assert.AreEqual(oldGroups, newGroups);
 
             foreach (GroupData group in newGroups)

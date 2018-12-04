@@ -53,12 +53,14 @@ namespace WebAddressbookTests
         public string Footer { get; set; }
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string ID { get; set; }
+        [Column(Name = "deprecated")]
+        public string Depricated { get; set; }
 
         public static List<GroupData> GetAll()
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Groups select g).ToList();
+                return (from g in db.Groups.Where(x => x.Depricated == "0000 - 00 - 00 00:00:00") select g).ToList();
             }
         }
 
@@ -67,7 +69,8 @@ namespace WebAddressbookTests
             using (AddressBookDB db = new AddressBookDB())
             {
                 return (from a in db.Addresses
-                        from gar in db.GAR.Where(p => p.GroupID == ID && p.AddresssID == a.ID) select a).Distinct().ToList();
+                        from gar in db.GAR.Where(p => p.GroupID == ID && p.AddresssID == a.ID)
+                        select a).Distinct().ToList();
             }
         }
     }

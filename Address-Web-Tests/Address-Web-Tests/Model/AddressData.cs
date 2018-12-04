@@ -100,6 +100,8 @@ namespace WebAddressbookTests
         public string Notes {get; set;}
         [Column(Name = "id"), PrimaryKey, Identity]
         public string ID { get; set; }
+        [Column(Name = "deprecated")]
+        public string Depricated { get; set; }
         internal string AllPhones
         {
             get
@@ -192,7 +194,7 @@ namespace WebAddressbookTests
         public static List<AddressData> GetAll()
         {
             using (AddressBookDB db = new AddressBookDB())
-            { return (from a in db.Addresses select a).ToList(); }
+            { return (from a in db.Addresses.Where(x => x.Depricated == "0000 - 00 - 00 00:00:00") select a).ToList(); }
         }
     }
 }
